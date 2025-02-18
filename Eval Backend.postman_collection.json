@@ -1,0 +1,256 @@
+{
+	"info": {
+		"_postman_id": "fdac5010-3447-4be9-ad69-3dc5ec896042",
+		"name": "Eval Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40691520"
+	},
+	"item": [
+		{
+			"name": "REGISTER ADMIN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"V1L0T@example.com\",\r\n    \"password\": \"password123\",\r\n    \"role\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN ADMIN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"V1L0T@example.com\",\r\n    \"password\": \"password123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGOUT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"V1L0T@example.com\",\r\n    \"password\": \"password123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL SKILLS OF LOGGED IN USER",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/skills",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"skills"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE SKILL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Skill 1",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "software",
+							"type": "text"
+						},
+						{
+							"key": "level",
+							"value": "debutant",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "postman-cloud:///1efea0f8-b3a5-4680-82ee-836c6b098688"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/skills",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"skills"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE SKILL",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Skill 1 UPDATED",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "software",
+							"type": "text"
+						},
+						{
+							"key": "level",
+							"value": "debutant",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "postman-cloud:///1efea0fb-eb4e-4570-b742-8ff235091494"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/skills/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"skills",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "67adfa65bee09ddb37656670"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE SKILL",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/skills/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"skills",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "67b47175650f6b8d31ea6a60"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
