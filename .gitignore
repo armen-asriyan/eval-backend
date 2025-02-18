@@ -1,6 +1,5 @@
-.env
-node_modules
-logs
+*.docx
+*.odt
 .env
 node_modules
 logs
