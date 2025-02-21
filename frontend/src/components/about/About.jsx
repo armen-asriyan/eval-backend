@@ -1,7 +1,7 @@
 import React from "react";
 import "./About.css";
 
-import { RiUser3Line } from "react-icons/ri";
+import { RiShirtLine } from "react-icons/ri";
 
 import avatar2 from "../../assets/avatar2.png";
 
@@ -11,7 +11,7 @@ const About = () => {
       <a href="#about">
         <h2 className="section__title">
           <span>
-            <RiUser3Line />A propos
+            <RiShirtLine />A propos
           </span>
         </h2>
       </a>

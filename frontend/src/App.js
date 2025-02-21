@@ -28,7 +28,11 @@ function App() {
   return (
     <Router>
       <div className="app" data-theme={theme}>
-        <Sidebar theme={theme} switchTheme={switchTheme} />
+        <Sidebar
+          theme={theme}
+          switchTheme={switchTheme}
+          style={{ zIndex: "9999" }}
+        />
         <main className="main">
           <Routes>
             <Route path="/" element={<HomePageContent />} />

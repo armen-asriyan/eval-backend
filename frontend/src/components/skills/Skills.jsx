@@ -43,8 +43,6 @@ const Skills = ({ onEditSkill }) => {
       onEditSkill("", skillCategories, skillLevels);
       fetchSkills();
     }
-
-    window.scrollTo(0, 0);
   };
 
   useEffect(() => {

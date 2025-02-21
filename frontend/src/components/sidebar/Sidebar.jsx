@@ -123,6 +123,7 @@ const Sidebar = (props) => {
               <button
                 className="nav__link footer__button"
                 aria-label="Nav Dashboard"
+                onClick={() => showMenu(!toggle)}
               >
                 <RiDashboard2Line />
               </button>
