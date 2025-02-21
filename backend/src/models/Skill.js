@@ -46,7 +46,7 @@ const skillSchema = new mongoose.Schema({
       type: String,
       default: "",
     },
-    url: {
+    secure_url: {
       type: String,
       default: "",
     },

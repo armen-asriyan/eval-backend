@@ -79,7 +79,7 @@ export const createSkill = async (req, res, next) => {
       return res.status(404).json({ error: "Utilisateur introuvable" });
     }
 
-    let public_id, url;
+    let public_id, secure_url;
 
     if (file) {
       // Déterminer le mimetype
@@ -100,18 +100,18 @@ export const createSkill = async (req, res, next) => {
             { folder: `skills/${category}` }, // Nom du dossier dynamique basé sur la catégorie du skill créé
             (error, uploadResult) => {
               if (error) reject(error);
-              resolve(uploadResult); // Retourner l'info de l'upload (public_id et url)
+              resolve(uploadResult); // Retourner l'info de l'upload (public_id et secure_url)
             }
           )
           .end(file.buffer); // Uploader sur cloudinary
       });
 
       // Stocker public_id et url dans une variable
-      ({ public_id, url } = uploadResult);
+      ({ public_id, secure_url } = uploadResult);
     } else {
       // Utiliser l'image de placeholder
       public_id = "skills/autres/skill-placeholder";
-      url =
+      secure_url =
         "https://res.cloudinary.com/dglygoy4z/image/upload/v1739877977/skills/autres/skill-placeholder.webp";
     }
 
@@ -122,7 +122,7 @@ export const createSkill = async (req, res, next) => {
       level,
       image_URL: {
         public_id,
-        url,
+        secure_url,
       },
       userId,
     });
@@ -204,7 +204,7 @@ export const updateSkill = async (req, res, next) => {
             // upload_stream pour traiter le buffer
             { folder: `skills/${category}` }, // Nom du dossier dynamique basé sur la catégorie du skill créé
             (error, uploadResult) => {
-              return resolve(uploadResult); // Retourner l'info de l'upload (public_id et url)
+              return resolve(uploadResult); // Retourner l'info de l'upload (public_id et ssecure_url)
             }
           )
           .end(file.buffer); // Uploader sur cloudinary
@@ -213,7 +213,7 @@ export const updateSkill = async (req, res, next) => {
       // Stocker public_id et url dans une variable
       skill.image_URL = {
         public_id: uploadResult.public_id,
-        url: uploadResult.secure_url,
+        secure_url: uploadResult.secure_url,
       };
     }
 
