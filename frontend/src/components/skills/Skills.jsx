@@ -20,17 +20,25 @@ const Skills = ({ onEditSkill }) => {
   const { isAdmin } = useAuth();
 
   const [skillsData, setSkillsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [skillCategories, setSkillCategories] = useState([]);
   const [skillLevels, setSkillLevels] = useState([]);
 
   const fetchSkills = async () => {
     try {
+      setIsLoading(true);
+      setError(null);
+
       const res = await axios.get(`${apiUrl}/api/skills`);
+
       setSkillsData(res.data.skills);
       setSkillCategories(res.data.categories);
       setSkillLevels(res.data.levels);
     } catch (error) {
-      console.error("Error fetching skills data:", error);
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -41,7 +49,6 @@ const Skills = ({ onEditSkill }) => {
       navigate("/dashboard");
     } else {
       onEditSkill("", skillCategories, skillLevels);
-      fetchSkills();
     }
   };
 
@@ -61,8 +68,12 @@ const Skills = ({ onEditSkill }) => {
       </a>
 
       <div className="skills__container grid z-10">
-        {skillsData.length === 0 ? (
-          <h3 className="skills__title">Aucune competence trouvée</h3>
+        {isLoading ? (
+          <h3 className="skills__title">Chargement...</h3>
+        ) : error ? (
+          <h3 className="skills__title error">{error}</h3>
+        ) : skillsData.length === 0 ? (
+          <h3 className="skills__title">Aucune compétence trouvée</h3>
         ) : (
           skillsData.map((skill) => (
             <div className="skills__card" key={skill._id}>
