@@ -18,17 +18,17 @@
   transform: translateY(-10px);
 }
 
-.skills__card:nth-child(1) {
+.skills__card:nth-child(1n) {
   background-color: rgb(108, 108, 229);
   box-shadow: 0 5px 20px 0 rgb(108, 108, 229 / 50%);
 }
 
-.skills__card:nth-child(2) {
+.skills__card:nth-child(2n) {
   background-color: rgb(249, 215, 76);
   box-shadow: 0 5px 20px 0 rgb(249, 215, 76 / 50%);
 }
 
-.skills__card:nth-child(3) {
+.skills__card:nth-child(3n) {
   background-color: rgb(249, 123, 139);
   box-shadow: 0 5px 20px 0 rgb(249, 123, 139 / 50%);
 }
@@ -88,7 +88,7 @@
 .skills__title {
   font-size: var(--h3-font-size);
   margin-bottom: 1rem;
-  color: var(--body-color);
+  color: var(--text-color);
 }
 
 .skills__title.add-skill svg {
@@ -100,7 +100,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--container-color);
+  color: var(--text-color);
 }
 
 .skills__title.add-skill svg:hover {
@@ -128,16 +128,16 @@
   opacity: 1;
 }
 
-.skills__card:nth-child(2) .skills__title {
+.skills__card:nth-child(2n) .skills__title {
   color: var(--title-color);
 }
 
-.skills__card:nth-child(2) .skills__description {
+.skills__card:nth-child(2n) .skills__description {
   color: var(--title-color);
 }
 
-[data-theme="dark"] .skills__card:nth-child(2) .skills__title,
-[data-theme="dark"] .skills__card:nth-child(2) .skills__description {
+[data-theme="dark"] .skills__card:nth-child(2n) .skills__title,
+[data-theme="dark"] .skills__card:nth-child(2n) .skills__description {
   color: var(--body-color);
 }
 
