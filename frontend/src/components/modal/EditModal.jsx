@@ -7,7 +7,10 @@ import {
   RiLoader2Line,
   RiSave3Line,
 } from "react-icons/ri";
+
 import axios from "axios";
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
   const [formData, setFormData] = useState({
@@ -50,8 +53,8 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
     }
 
     const url = skill._id
-      ? `http://localhost:3000/api/skills/${skill._id}` // If there's a skill, edit it
-      : "http://localhost:3000/api/skills"; // Otherwise, add a new skill
+      ? `${apiUrl}/api/skills/${skill._id}` // If there's a skill, edit it
+      : `${apiUrl}/api/skills`; // Otherwise, add a new skill
 
     const method = skill._id ? "put" : "post"; // Determine if it's a PUT (edit) or POST (add)
 
@@ -81,12 +84,9 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
     setSuccess(null);
 
     try {
-      const response = await axios.delete(
-        `http://localhost:3000/api/skills/${skill._id}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.delete(`${apiUrl}/api/skills/${skill._id}`, {
+        withCredentials: true,
+      });
       setSuccess(response.data.message);
       window.location.reload();
       closeModal();

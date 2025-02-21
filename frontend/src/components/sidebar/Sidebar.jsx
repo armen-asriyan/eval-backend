@@ -18,7 +18,9 @@ import {
   RiLoginBoxLine,
   RiLogoutBoxLine,
 } from "react-icons/ri";
+
 import axios from "axios";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Sidebar = (props) => {
   const { isAuth } = useAuth();
@@ -28,7 +30,7 @@ const Sidebar = (props) => {
   const handleLogout = () => {
     axios
       .post(
-        "http://localhost:3000/api/auth/logout",
+        `${apiUrl}/api/auth/logout`,
         {},
         {
           withCredentials: true,

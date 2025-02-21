@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Skills.css";
 
 import axios from "axios";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -27,7 +28,7 @@ const Skills = ({ onEditSkill }) => {
 
   const fetchSkills = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/skills");
+      const res = await axios.get(`${apiUrl}/api/skills`);
       setSkillsData(res.data.skills);
       setSkillCategories(res.data.categories);
       setSkillLevels(res.data.levels);
