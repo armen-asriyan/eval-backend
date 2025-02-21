@@ -81,6 +81,7 @@ const Skills = ({ onEditSkill }) => {
                 src={skill.image_URL.secure_url}
                 alt={skill.title}
                 className="skills__img"
+                loading="lazy"
               />
               <h3 className="skills__title">{skill.title}</h3>
               <div className="skills__info">
