@@ -10,11 +10,21 @@ import generateToken from "../utils/tokenUtil.js";
 // Fonction pour créer un nouvel utilisateur (l'owner de portfolio), cette fonction est accessible seulement par l'admin
 export const registerUser = async (req, res, next) => {
   try {
+    // Code pour verifier si il y a deja un admin
+    const admin = await User.findOne({ role: "admin" });
+
+    if (admin) {
+      return next({
+        statusCode: 400,
+        message: "Admin existant, création impossible",
+      });
+    }
+
     // Destructurer les données du corps de la requête
     const { name, email, password, role } = req.body;
 
     // Vérifier si les champs obligatoires sont présents
-    if ((!name || !email || !password, !role)) {
+    if (!name || !email || !password) {
       return next({
         statusCode: 400,
         message: "Tous les champs sont obligatoires",
