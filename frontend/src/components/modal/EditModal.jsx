@@ -69,7 +69,7 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
       closeModal();
       window.location.reload();
     } catch (error) {
-      setError(error.response?.data?.message || "Something went wrong.");
+      setError(error.response?.data?.message || "Erreur de connexion.");
     } finally {
       setLoading(false);
     }
@@ -90,7 +90,7 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
       window.location.reload();
       closeModal();
     } catch (error) {
-      setError("Failed to delete skill.");
+      setError(error.response?.data?.message || "Erreur de connexion.");
     } finally {
       setLoading(false);
     }

@@ -16,6 +16,7 @@ import {
   RiDashboard2Line,
   RiLoginBoxLine,
   RiLogoutBoxLine,
+  RiErrorWarningLine,
 } from "react-icons/ri";
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -24,6 +25,7 @@ const Sidebar = (props) => {
   const { isAuth, setIsAuth } = useAuth();
 
   const [toggle, showMenu] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleLogout = async () => {
     showMenu(!toggle);
@@ -40,10 +42,7 @@ const Sidebar = (props) => {
 
       window.location.href = "/";
     } catch (error) {
-      console.error(
-        "Error logging out:",
-        error.response ? error.response.data : error.message
-      );
+      setError(error.response.data.message);
     }
   };
 
@@ -116,7 +115,7 @@ const Sidebar = (props) => {
                     onClick={() => handleLogout()}
                     aria-label="Nav Se deconnecter"
                   >
-                    <RiLogoutBoxLine />
+                    {error ? <RiErrorWarningLine /> : <RiLogoutBoxLine />}
                   </button>
                 </li>
               )}

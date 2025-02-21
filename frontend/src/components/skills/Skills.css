@@ -88,7 +88,7 @@
 .skills__title {
   font-size: var(--h3-font-size);
   margin-bottom: 1rem;
-  color: #fff;
+  color: var(--body-color);
 }
 
 .skills__title.add-skill svg {
@@ -100,6 +100,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  color: var(--container-color);
 }
 
 .skills__title.add-skill svg:hover {
