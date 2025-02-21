@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Skills.css";
-
 import axios from "axios";
-const apiUrl = process.env.REACT_APP_API_URL;
-
 import { useNavigate, useLocation } from "react-router-dom";
 
+import { useAuth } from "../../authContext";
 import {
   RiAddLine,
   RiFunctionLine,
@@ -14,7 +12,7 @@ import {
   RiToolsLine,
 } from "react-icons/ri";
 
-import { useAuth } from "../../authContext";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Skills = ({ onEditSkill }) => {
   const navigate = useNavigate();

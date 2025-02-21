@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import "./Sidebar.css";
 import Logo from "../../assets/logo.svg";
 import LightLogo from "../../assets/light-logo.svg";
-
 import { Link } from "react-router";
-
 import { useAuth } from "../../authContext";
+import axios from "axios";
 
 import {
   RiHome2Line,
@@ -19,7 +18,6 @@ import {
   RiLogoutBoxLine,
 } from "react-icons/ri";
 
-import axios from "axios";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Sidebar = (props) => {

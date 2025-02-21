@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // For navigation after successful login
-
+import "./Login.css";
 import { useAuth } from "../../authContext";
+import Shapes from "../home/Shapes";
 
 import axios from "axios";
 const apiUrl = process.env.REACT_APP_API_URL;
-
-import "./Login.css";
-import Shapes from "../home/Shapes";
 
 const Login = () => {
   const [email, setEmail] = useState("");
