@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Sidebar.css";
 import Logo from "../../assets/logo.svg";
 import LightLogo from "../../assets/light-logo.svg";
@@ -6,8 +6,6 @@ import LightLogo from "../../assets/light-logo.svg";
 import { Link } from "react-router";
 
 import { useAuth } from "../../authContext";
-
-import { useNavigate } from "react-router-dom";
 
 import {
   RiHome2Line,
@@ -26,8 +24,6 @@ const Sidebar = (props) => {
   const { isAuth } = useAuth();
 
   const [toggle, showMenu] = useState(false);
-
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     axios

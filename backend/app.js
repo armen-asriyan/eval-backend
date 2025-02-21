@@ -1,6 +1,8 @@
 // Import les modules necessaires
 import express from "express";
-import "dotenv/config";
+
+// Dotenv est chargé depuis "npm run dev"
+
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import helmet from "helmet";
