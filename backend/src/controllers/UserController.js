@@ -116,7 +116,12 @@ export const loginUser = async (req, res, next) => {
 export const logoutUser = async (req, res, next) => {
   try {
     // Effacer le cookie de connexion
-    res.clearCookie("token", { httpOnly: true, path: "/" });
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // This is important for Chrome
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      path: "/",
+    });
 
     // Renvoyer un message de confirmation
     res.status(200).json({ message: "Utilisateur déconnecté" });

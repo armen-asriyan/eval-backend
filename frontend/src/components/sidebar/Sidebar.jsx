@@ -21,21 +21,22 @@ import {
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Sidebar = (props) => {
-  const { isAuth } = useAuth();
+  const { isAuth, setIsAuth } = useAuth();
 
   const [toggle, showMenu] = useState(false);
 
   const handleLogout = async () => {
     showMenu(!toggle);
     try {
-      const response = await axios.post(
+      await axios.post(
         `${apiUrl}/api/auth/logout`,
         {},
         {
           withCredentials: true,
         }
       );
-      console.log("Logout response:", response.data);
+
+      setIsAuth(false);
 
       window.location.href = "/";
     } catch (error) {
@@ -99,7 +100,10 @@ const Sidebar = (props) => {
                   <Link
                     to="/login"
                     className="nav__link"
-                    onClick={() => showMenu(!toggle)}
+                    onClick={() => {
+                      showMenu(!toggle);
+                      window.scrollTo({ top: 0 });
+                    }}
                     aria-label="Nav Se connecter"
                   >
                     <RiLoginBoxLine />
