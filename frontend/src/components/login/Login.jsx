@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom"; // For navigation after successful login
 import "./Login.css";
 import { useAuth } from "../../authContext";
 import Shapes from "../home/Shapes";
 
+import ReCAPTCHA from "react-google-recaptcha";
+
 import axios from "axios";
 const apiUrl = process.env.REACT_APP_API_URL;
+
+const recaptchaSiteKey = process.env.REACT_APP_SITE_KEY;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,6 +17,7 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const { isAuth } = useAuth(); // Track auth state
   const navigate = useNavigate(); // React Router hook for navigation
+  const recaptchaRef = useRef();
 
   useEffect(() => {
     if (isAuth) {
@@ -25,6 +30,13 @@ const Login = () => {
     setMessage("");
 
     try {
+      const captchaValue = recaptchaRef.current.getValue();
+
+      if (!captchaValue) {
+        setMessage("Veuillez valider le captcha.");
+        return;
+      }
+
       const res = await axios.post(
         `${apiUrl}/api/auth/login`,
         { email, password },
@@ -73,6 +85,13 @@ const Login = () => {
               required
             />
           </label>
+
+          <ReCAPTCHA
+            sitekey={recaptchaSiteKey}
+            style={{ marginBottom: "2rem" }}
+            ref={recaptchaRef}
+          />
+
           <button type="submit">Se Connecter</button>
           {message && <p>{message}</p>}
         </form>
