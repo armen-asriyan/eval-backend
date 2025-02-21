@@ -25,18 +25,20 @@ const Sidebar = (props) => {
 
   const [toggle, showMenu] = useState(false);
 
-  const handleLogout = () => {
-    axios
-      .post(
+  const handleLogout = async () => {
+    try {
+      await axios.post(
         `${apiUrl}/api/auth/logout`,
         {},
         {
           withCredentials: true,
         }
-      )
-      .then((res) => {
-        window.location.href = "/";
-      });
+      );
+
+      window.location.href = "/";
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

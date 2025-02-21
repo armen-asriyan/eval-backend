@@ -9,7 +9,6 @@ import HomePageContent from "./components/HomePageContent";
 import Login from "./components/login/Login";
 import Dashboard from "./components/dashboard/Dashboard";
 import NotFound from "./components/NotFound/NotFound";
-import Logout from "./components/Logout/Logout";
 
 import Footer from "./components/footer/Footer";
 
@@ -37,7 +36,6 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePageContent />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/logout" element={<Logout />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

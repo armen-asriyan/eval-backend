@@ -60,6 +60,7 @@ aside {
   z-index: 9999;
   transition: 0.3s;
   font-size: 1rem;
+  display: none;
 }
 
 [data-theme="dark"] .nav__toggle {
@@ -81,6 +82,7 @@ aside {
 
   .nav__toggle-open {
     left: 140px;
+    display: block;
   }
 
   .show-menu {
