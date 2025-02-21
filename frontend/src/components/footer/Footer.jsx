@@ -6,7 +6,7 @@ import { RiGithubFill } from "react-icons/ri";
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer z-10">
       <p className="footer__text">
         Ce projet utilise le template créé par @
         <a

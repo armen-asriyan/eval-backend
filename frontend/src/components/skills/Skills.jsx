@@ -50,7 +50,7 @@ const Skills = ({ onEditSkill }) => {
   }, []);
 
   return (
-    <section className="skills container skill" id="skills">
+    <section className="skills container skill " id="skills">
       <a href="#skills">
         <h2 className="section__title">
           <span>
@@ -60,7 +60,7 @@ const Skills = ({ onEditSkill }) => {
         </h2>
       </a>
 
-      <div className="skills__container grid">
+      <div className="skills__container grid z-10">
         {skillsData.length === 0 ? (
           <h3 className="skills__title">Aucune competence trouvée</h3>
         ) : (
