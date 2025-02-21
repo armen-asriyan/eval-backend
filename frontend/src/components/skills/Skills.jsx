@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./Skills.css";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-
 import { useAuth } from "../../authContext";
 import {
   RiAddLine,

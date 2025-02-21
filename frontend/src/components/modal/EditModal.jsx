@@ -14,10 +14,10 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
   const [formData, setFormData] = useState({
-    title: skill.title,
-    category: skill.category,
-    level: skill.level,
-    image: null, // Add image to the state
+    title: skill?.title || "",
+    category: skill?.category || Object.keys(skillCategories)[0],
+    level: skill?.level || Object.keys(skillLevels)[0],
+    image: null,
   });
 
   const [loading, setLoading] = useState(false);
@@ -37,7 +37,6 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
   };
 
   // Handle form submission
-  // General function to handle both adding and editing skills
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -56,7 +55,7 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
       ? `${apiUrl}/api/skills/${skill._id}` // If there's a skill, edit it
       : `${apiUrl}/api/skills`; // Otherwise, add a new skill
 
-    const method = skill._id ? "put" : "post"; // Determine if it's a PUT (edit) or POST (add)
+    const method = skill?._id ? "put" : "post"; // Determine if it's a PUT (edit) or POST (add)
 
     try {
       const response = await axios[method](url, data, {
@@ -102,7 +101,7 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
       <div className="edit-modal-content">
         <h2>{skill ? "Modifier la" : "Ajouter une"} compétence</h2>
 
-        <form className="skill-form">
+        <form className="skill-form" onSubmit={handleSubmit}>
           <label htmlFor="skill-title">
             Nom de la compétence:
             <input
@@ -162,25 +161,21 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
             />
           </label>
 
-          {skill ? (
-            <button
-              type="submit"
-              className="edit-modal__btn save"
-              disabled={loading}
-              onClick={handleSubmit}
-            >
-              <RiSave3Line /> Enregistrer
-            </button>
-          ) : (
-            <button
-              type="submit"
-              className="edit-modal__btn save"
-              disabled={loading}
-              onClick={handleSubmit}
-            >
-              <RiAddBoxLine /> Ajouter
-            </button>
-          )}
+          <button
+            type="submit"
+            className="edit-modal__btn save"
+            disabled={loading}
+          >
+            {skill ? (
+              <>
+                <RiSave3Line /> Enregistrer
+              </>
+            ) : (
+              <>
+                <RiAddBoxLine /> Ajouter
+              </>
+            )}
+          </button>
 
           <button
             type="button"
@@ -192,13 +187,16 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
           </button>
         </form>
 
-        <button
-          type="button"
-          onClick={handleDeleteSubmit}
-          className="edit-modal__btn delete"
-        >
-          <RiDeleteBin6Line /> Supprimer
-        </button>
+        {skill && (
+          <button
+            type="button"
+            onClick={handleDeleteSubmit}
+            className="edit-modal__btn delete"
+            disabled={loading}
+          >
+            <RiDeleteBin6Line /> Supprimer
+          </button>
+        )}
 
         {/* Error and success messages */}
         {error && <p className="error">{error}</p>}
