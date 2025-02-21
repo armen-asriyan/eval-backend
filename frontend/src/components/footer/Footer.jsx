@@ -10,17 +10,19 @@ const Footer = () => {
       <p className="footer__text">
         Ce projet utilise le template créé par @
         <a
-          href="https://github.com/GregSithole"
+          href="https://github.com/GregSithole/gregsithole-react-portfolio"
           className="footer__link"
           target="_blank"
           rel="noreferrer"
         >
           <span className="author">GregSithole</span>
         </a>
-        {" :"}
+      </p>
+      <p style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+        Fait par Armen Asriyan
       </p>
       <a
-        href="https://github.com/GregSithole/gregsithole-react-portfolio"
+        href="https://github.com/armen-asriyan/eval-backend"
         className="footer__link"
         target="_blank"
         rel="noreferrer"
