@@ -3,14 +3,10 @@ import mongoose from "mongoose";
 
 const DB_NAME = process.env.DB_NAME || "test-db";
 
-console.log(DB_NAME);
-
 const MONGO_URI =
   `${process.env.MONGO_URI}${DB_NAME}` ||
   process.env.MONGO_URI ||
   `mongodb://localhost:27017/${DB_NAME}`;
-
-console.log(MONGO_URI);
 
 // Fonction pour connecter à la base de données
 const connectDB = async () => {
@@ -20,9 +16,9 @@ const connectDB = async () => {
     const conn = await mongoose.connect(MONGO_URI);
 
     // Afficher un message de succès avec le nom de l'hôte
-    console.log(
-      `Connexion à la base de données établie : ${conn.connection.host}`
-    );
+    // console.log(
+    //   `Connexion à la base de données établie : ${conn.connection.host}`
+    // );
 
     // Retourner la connexion (pour utilisation ultérieure)
     return conn;

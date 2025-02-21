@@ -14,7 +14,7 @@ const startServer = async () => {
 
     // Demarrer le serveur Express
     app.listen(PORT, () => {
-      console.log(`Serveur tourne sur http://localhost:${PORT}`);
+      console.log(`Serveur tourne sur ${PORT}`);
     });
   } catch (error) {
     console.error(`Erreur lors du demarrage du serveur : ${error}`);
