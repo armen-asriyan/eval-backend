@@ -26,18 +26,23 @@ const Sidebar = (props) => {
   const [toggle, showMenu] = useState(false);
 
   const handleLogout = async () => {
+    showMenu(!toggle);
     try {
-      await axios.post(
+      const response = await axios.post(
         `${apiUrl}/api/auth/logout`,
         {},
         {
           withCredentials: true,
         }
       );
+      console.log("Logout response:", response.data);
 
       window.location.href = "/";
     } catch (error) {
-      console.log(error);
+      console.error(
+        "Error logging out:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
@@ -102,17 +107,13 @@ const Sidebar = (props) => {
                 </li>
               ) : (
                 <li className="nav__item">
-                  <Link
-                    to="/#"
-                    className="nav__link"
-                    onClick={() => {
-                      showMenu(!toggle);
-                      handleLogout();
-                    }}
+                  <button
+                    className="nav__link logout-button"
+                    onClick={() => handleLogout()}
                     aria-label="Nav Se deconnecter"
                   >
                     <RiLogoutBoxLine />
-                  </Link>
+                  </button>
                 </li>
               )}
             </ul>

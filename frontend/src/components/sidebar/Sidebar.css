@@ -71,6 +71,10 @@ aside {
   color: var(--title-color);
 }
 
+.logout-button {
+  background-color: transparent;
+}
+
 @media screen and (max-width: 1024px) {
   .aside {
     left: -110px;
