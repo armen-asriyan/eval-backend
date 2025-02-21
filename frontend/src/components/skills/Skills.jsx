@@ -50,11 +50,7 @@ const Skills = ({ onEditSkill }) => {
   }, []);
 
   return (
-    <section
-      className="skills container skill"
-      id="skills"
-      style={{ zIndex: "9999" }}
-    >
+    <section className="skills container skill" id="skills">
       <a href="#skills">
         <h2 className="section__title">
           <span>
@@ -69,11 +65,7 @@ const Skills = ({ onEditSkill }) => {
           <h3 className="skills__title">Aucune competence trouvée</h3>
         ) : (
           skillsData.map((skill) => (
-            <div
-              className="skills__card"
-              key={skill._id}
-              style={{ zIndex: "1" }}
-            >
+            <div className="skills__card" key={skill._id}>
               <img
                 src={skill.image_URL.url}
                 alt={skill.title}
