@@ -78,7 +78,7 @@ const Skills = ({ onEditSkill }) => {
           skillsData.map((skill) => (
             <div className="skills__card" key={skill._id}>
               <img
-                src={skill.image_URL.url}
+                src={skill.image_URL.secure_url}
                 alt={skill.title}
                 className="skills__img"
               />
