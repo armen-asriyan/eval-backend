@@ -90,6 +90,7 @@ export const loginUser = async (req, res, next) => {
     // Renvoyer le token JWT en cookie
     res.cookie("token", token, {
       httpOnly: true, // Sécuriser le cookie
+      secure: process.env.NODE_ENV === "production", // Seulement en mode production
     });
 
     // Envoyer un message de confirmation
@@ -103,7 +104,7 @@ export const loginUser = async (req, res, next) => {
 export const logoutUser = async (req, res, next) => {
   try {
     // Effacer le cookie de connexion
-    res.clearCookie("token");
+    res.clearCookie("token", { httpOnly: true, path: "/" });
 
     // Renvoyer un message de confirmation
     res.status(200).json({ message: "Utilisateur déconnecté" });

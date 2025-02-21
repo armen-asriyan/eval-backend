@@ -1,11 +1,17 @@
 import "./App.css";
 
 import Sidebar from "./components/sidebar/Sidebar";
-import Home from "./components/home/Home";
-import About from "./components/about/About";
-import Skills from "./components/skills/Skills";
-import Footer from "./components/footer/Footer";
 import useLocalStorage from "use-local-storage";
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import HomePageContent from "./components/HomePageContent";
+import Login from "./components/login/Login";
+import Dashboard from "./components/dashboard/Dashboard";
+import NotFound from "./components/NotFound/NotFound";
+import Logout from "./components/Logout/Logout";
+
+import Footer from "./components/footer/Footer";
 
 function App() {
   const defaultDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -20,15 +26,21 @@ function App() {
   };
 
   return (
-    <div className="app" data-theme={theme}>
-      <Sidebar theme={theme} switchTheme={switchTheme} />
-      <main className="main">
-        <Home />
-        <About />
-        <Skills />
+    <Router>
+      <div className="app" data-theme={theme}>
+        <Sidebar theme={theme} switchTheme={switchTheme} />
+        <main className="main">
+          <Routes>
+            <Route path="/" element={<HomePageContent />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
         <Footer />
-      </main>
-    </div>
+      </div>
+    </Router>
   );
 }
 

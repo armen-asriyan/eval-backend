@@ -1,16 +1,19 @@
 // Importer mongoose
 import mongoose from "mongoose";
 
-export let possibleCategories = [
-  "software",
-  "hardware",
-  "langage",
-  "frontend",
-  "backend",
-  "autres",
-];
+export const POSSIBLE_CATEGORIES = {
+  frontend: "Competences Frontend",
+  backend: "Competences Backend",
+  fullstack: "Competences Fullstack",
+  devops: "DevOps",
+  autres: "Autres Competences",
+};
 
-export let possibleLevels = ["debutant", "intermediaire", "expert"];
+export const POSSIBLE_LEVELS = {
+  debutant: "Debutant",
+  intermediaire: "Intermédiaire",
+  expert: "Expert",
+};
 
 // Créer un schéma de skills (de l'owner de portfolio)
 const skillSchema = new mongoose.Schema({
@@ -25,22 +28,28 @@ const skillSchema = new mongoose.Schema({
   category: {
     // Categorie de skill
     type: String,
-    trim: true,
     required: [true, "La categorie est requise"],
-    enum: possibleCategories,
+    enum: Object.keys(POSSIBLE_CATEGORIES),
     default: "autres",
+    lowercase: true,
   },
   level: {
     // Niveau de skill
     type: String,
-    trim: true,
     required: [true, "Le niveau est requis"],
-    enum: possibleLevels,
+    enum: Object.keys(POSSIBLE_LEVELS),
+    default: "debutant",
   },
   image_URL: {
     // URL de l'image (Cloudinary)
-    public_id: String,
-    url: String,
+    public_id: {
+      type: String,
+      default: "",
+    },
+    url: {
+      type: String,
+      default: "",
+    },
   },
   userId: {
     // Utilisateur qui a ajouté le skill
@@ -49,11 +58,6 @@ const skillSchema = new mongoose.Schema({
     required: [true, "L'utilisateur est requis"],
   },
 });
-
-// Ajouter une fonction statique pour obtenir les categories possibles
-skillSchema.statics.getPossibleCategories = function () {
-  return possibleCategories;
-};
 
 // Créer un modele de skill
 const Skill = mongoose.model("Skill", skillSchema);

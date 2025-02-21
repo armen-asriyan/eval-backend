@@ -3,22 +3,25 @@ import "./About.css";
 
 import { RiUser3Line } from "react-icons/ri";
 
+import avatar2 from "../../assets/avatar2.png";
+
 const About = () => {
   return (
     <section className="about container section" id="about">
-      <h2 className="section__title">
-        <span>
-          <RiUser3Line />
-        </span>{" "}
-        A propos{" "}
-      </h2>
+      <a href="#about">
+        <h2 className="section__title">
+          <span>
+            <RiUser3Line />A propos
+          </span>
+        </h2>
+      </a>
 
       <div className="about__container grid">
-        <img src={Image} alt="" className="about__img" />
+        <img src={avatar2} alt="avatar2" className="about__img" />
 
         <div className="about__data grid">
           <div className="about__info">
-            <p class="about__description">
+            <p className="about__description">
               {" "}
               Bonjour! Je suis John Doe, un développeur web passionné et axé sur
               les résultats, avec plus de 5 ans d'expérience dans la création de

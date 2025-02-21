@@ -22,7 +22,7 @@ const protect = async (req, res, next) => {
     const user = await User.findById(decoded.id).select("-password");
 
     // Stocker l'id de l'utilisateur dans la requête
-    req.user = user.id;
+    req.user = user;
 
     // Si le token est valide, passer au middleware suivant
     next();

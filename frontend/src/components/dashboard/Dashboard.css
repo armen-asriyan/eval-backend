@@ -1,0 +1,35 @@
+.dashboard {
+  padding: 20px;
+  min-height: 100vh;
+  max-width: 100%;
+}
+
+.dashboard .text-right {
+  text-align: right;
+}
+
+.dashboard__title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.dashboard .content {
+  position: relative;
+  z-index: 2;
+}
+
+.dashboard .intro {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: 100%;
+}
+
+.dashboard__avatar {
+  margin-right: 10px;
+}
+
+.dashboard .welcome-text {
+  display: flex;
+  flex-direction: column;
+}

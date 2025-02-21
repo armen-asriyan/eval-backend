@@ -5,3 +5,30 @@
   text-align: center;
   padding: 2rem 0;
 }
+
+.footer__text {
+  margin-bottom: 1.5rem;
+}
+
+.footer__link {
+  font-size: 1.3rem;
+  color: var(--title-color);
+  font-weight: var(--font-bold);
+  transition: 0.3s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer__link .github {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.footer__link .author {
+  font-size: 1rem !important;
+}
+
+.footer__link:hover {
+  color: hsl(43, 100%, 68%);
+  transform: scale(1.1);
+}

@@ -1,6 +1,6 @@
 // Importer express-validator
 import { body, param, check } from "express-validator";
-import { possibleCategories, possibleLevels } from "../models/Skill.js";
+import { POSSIBLE_CATEGORIES, POSSIBLE_LEVELS } from "../models/Skill.js";
 
 // Les regles de validation pour getSkills
 export const getSkillsRules = [
@@ -26,7 +26,7 @@ export const createSkillRules = [
     .trim()
     .notEmpty()
     .withMessage("La categorie est obligatoire")
-    .isIn(possibleCategories)
+    .isIn(Object.keys(POSSIBLE_CATEGORIES))
     .withMessage(
       "La categorie doit avoir au moins 3 caractères et au plus 50 caractères"
     ),
@@ -36,7 +36,7 @@ export const createSkillRules = [
     .trim()
     .notEmpty()
     .withMessage("Le niveau est obligatoire")
-    .isIn(possibleLevels),
+    .isIn(Object.keys(POSSIBLE_LEVELS)),
 ];
 
 // Les regles de validation pour updateSkill
@@ -60,7 +60,7 @@ export const updateSkillRules = [
     .trim()
     .notEmpty()
     .withMessage("La categorie est obligatoire")
-    .isIn(possibleCategories)
+    .isIn(Object.keys(POSSIBLE_CATEGORIES))
     .withMessage(
       "La categorie doit avoir au moins 3 caractères et au plus 50 caractères"
     ),
@@ -70,7 +70,7 @@ export const updateSkillRules = [
     .trim()
     .notEmpty()
     .withMessage("Le niveau est obligatoire")
-    .isIn(possibleLevels),
+    .isIn(Object.keys(POSSIBLE_LEVELS)),
 ];
 
 // Les regles de validation pour deleteSkill

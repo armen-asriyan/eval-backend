@@ -28,7 +28,8 @@ import validateRequest from "../middlewares/validateRequest.js";
 const router = express.Router();
 
 // Récupérer tous les skills
-router.get("/", protect, isAdmin, getSkillsRules, validateRequest, getSkills);
+// router.get("/", protect, isAdmin, getSkillsRules, validateRequest, getSkills);
+router.get("/", getSkills);
 
 // Créer une route pour créer un skill
 router.post(

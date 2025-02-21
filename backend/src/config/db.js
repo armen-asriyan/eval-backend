@@ -3,8 +3,14 @@ import mongoose from "mongoose";
 
 const DB_NAME = process.env.DB_NAME || "test-db";
 
+console.log(DB_NAME);
+
 const MONGO_URI =
-  process.env.MONGO_URI || `mongodb://localhost:27017/${DB_NAME}`;
+  `${process.env.MONGO_URI}${DB_NAME}` ||
+  process.env.MONGO_URI ||
+  `mongodb://localhost:27017/${DB_NAME}`;
+
+console.log(MONGO_URI);
 
 // Fonction pour connecter à la base de données
 const connectDB = async () => {

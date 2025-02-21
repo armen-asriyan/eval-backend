@@ -5,15 +5,7 @@ import User from "../models/User.js";
 const isAdmin = async (req, res, next) => {
   try {
     // Récupérer l'id de l'utilisateur de la requête
-    const userId = req.user;
-
-    // Trouver l'utilisateur dans la base de donnée
-    const user = await User.findById(userId);
-
-    // Si l'utilisateur n'existe pas, renvoyer une erreur
-    if (!user) {
-      return res.status(404).json({ error: "Utilisateur introuvable" });
-    }
+    const user = req.user;
 
     // Si l'utilisateur n'est pas un admin, renvoyer une erreur
     if (user.role !== "admin") {

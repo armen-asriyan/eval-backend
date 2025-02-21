@@ -16,7 +16,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Utiliser cors
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || "http://localhost:5000",
+    credentials: true,
+  })
+);
 
 // Utiliser helmet
 app.use(helmet());

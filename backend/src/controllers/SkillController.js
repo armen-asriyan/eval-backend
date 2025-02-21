@@ -5,7 +5,10 @@ import { isValidObjectId } from "mongoose";
 import User from "../models/User.js";
 
 // Importer le modele Skills
-import Skill from "../models/Skill.js";
+import Skill, {
+  POSSIBLE_CATEGORIES,
+  POSSIBLE_LEVELS,
+} from "../models/Skill.js";
 
 // Importer le config de cloudinary
 import cloudinary from "../config/cloudinary.js";
@@ -20,29 +23,30 @@ import { fileTypeFromBuffer } from "file-type";
 export const getSkills = async (req, res, next) => {
   try {
     // Récuperer l'id de l'utilisateur de la requête
-    const userId = req.user;
+    // const userId = req.user;
 
     // Valider l'id
-    if (!isValidObjectId(userId)) {
-      return res.status(404).json({ error: "Utilisateur introuvable" });
-    }
+    // if (!isValidObjectId(userId)) {
+    //   return res.status(404).json({ error: "Utilisateur introuvable" });
+    // }
 
     // Trouver l'utilisateur dans la base de donnée
-    const user = await User.findById(userId);
+    // const user = await User.findById(userId);
 
     // Si l'utilisateur n'existe pas, renvoyer une erreur
-    if (!user) {
-      return res.status(404).json({ error: "Utilisateur introuvable" });
-    }
+    // if (!user) {
+    //   return res.status(404).json({ error: "Utilisateur introuvable" });
+    // }
 
     // Récuperer les skills de l'utilisateur
-    const skills = await Skill.find({ userId });
+    const skills = await Skill.find({});
 
     // Renvoyer les skills
     res.status(200).json({
-      message: `Les skills de ${user.name} ont bien été trouvées`,
+      message: `Les skills :`,
       skills,
-      possibleCategories: Skill.getPossibleCategories(),
+      categories: POSSIBLE_CATEGORIES,
+      levels: POSSIBLE_LEVELS,
     });
   } catch (error) {
     console.error(error);
@@ -173,11 +177,15 @@ export const updateSkill = async (req, res, next) => {
       return res.status(404).json({ error: "Skill introuvable" });
     }
 
-    // Si l'image est modifiée
     if (file) {
-      // Supprimer l'ancienne image de cloudinary
-      await cloudinary.uploader.destroy(skill.image_URL.public_id);
+      // Determine si l'image actuelle est l'image de placeholder
+      const isPlaceholder =
+        skill.image_URL.public_id === "skills/autres/skill-placeholder";
 
+      // Supprimer l'ancienne image de cloudinary sauf si elle est l'image de placeholder
+      if (!isPlaceholder) {
+        await cloudinary.uploader.destroy(skill.image_URL.public_id);
+      }
       // Déterminer le mimetype
       const { mime } = await fileTypeFromBuffer(file.buffer);
 
@@ -257,8 +265,13 @@ export const deleteSkill = async (req, res, next) => {
       return res.status(404).json({ error: "Skill introuvable" });
     }
 
-    // Supprimer l'image de cloudinary
-    await cloudinary.uploader.destroy(skill.image_URL.public_id);
+    const isPlaceholder =
+      skill.image_URL.public_id === "skills/autres/skill-placeholder";
+
+    // Supprimer l'image de cloudinary, si elle n'est pas une image de placeholder
+    if (!isPlaceholder) {
+      await cloudinary.uploader.destroy(skill.image_URL.public_id);
+    }
 
     // Supprimer le skill
     await Skill.deleteOne({ _id: skillId });

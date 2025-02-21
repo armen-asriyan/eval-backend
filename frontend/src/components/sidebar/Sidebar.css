@@ -25,14 +25,17 @@ aside {
   color: var(--title-color);
   font-weight: var(--font-bold);
   transition: 0.3s;
+  display: inline-block;
 }
 
 .nav__link:hover {
   color: hsl(43, 100%, 68%);
+  transform: scale(1.1);
 }
 
 .footer__button {
   background-color: transparent;
+  margin: 0.2rem auto;
 }
 
 .copyright {

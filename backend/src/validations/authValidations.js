@@ -57,6 +57,3 @@ export const loginUserRules = [
     .notEmpty()
     .withMessage("Le mot de passe est obligatoire"),
 ];
-
-// Les regles de validation pour logoutUser
-export const logoutUserRules = [param("id").isString().trim().notEmpty()];

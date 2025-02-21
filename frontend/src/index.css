@@ -68,7 +68,8 @@ html {
 body,
 button,
 input,
-textarea {
+textarea,
+select {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
 }
@@ -131,9 +132,27 @@ img {
 .section__title {
   font-size: var(--h1-font-size);
   margin-left: 0.875rem;
+  margin-bottom: 3.75rem;
   font-weight: var(--font-bold);
   position: relative;
-  margin-bottom: 3.75rem;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  color: var(--title-color);
+}
+
+.section__title span {
+  display: flex;
+  align-items: center;
+}
+
+.section__title span svg {
+  margin-right: 0.5rem;
+  display: inline-block;
+}
+
+.section__title:hover {
+  color: hsl(43, 100%, 68%);
 }
 
 .section__title::before {
@@ -144,6 +163,8 @@ img {
   position: absolute;
   left: -0.875rem;
   top: -0.875rem;
+  pointer-events: none;
+  touch-action: none;
 }
 
 [data-theme="dark"] .section__title::before {

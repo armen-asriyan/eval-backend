@@ -12,11 +12,11 @@ import {
 import {
   registerUserRules,
   loginUserRules,
-  logoutUserRules,
 } from "../validations/authValidations.js";
 
 // Importer les middlewares
 import validateRequest from "../middlewares/validateRequest.js";
+import protect from "../middlewares/protect.js";
 
 // Créer un routeur
 const router = express.Router();
@@ -28,7 +28,12 @@ router.post("/register", registerUserRules, validateRequest, registerUser);
 router.post("/login", loginUserRules, validateRequest, loginUser);
 
 // Route pour la déconnexion de l'utilisateur
-router.post("/logout", logoutUserRules, validateRequest, logoutUser);
+router.post("/logout", logoutUser);
+
+// Route pour récupérer un utilisateur connecté (pour le traiter en frontend)
+router.get("/check", protect, (req, res) =>
+  res.status(200).json({ isAuth: true, user: req.user })
+);
 
 // Exporter le routeur
 export default router;
