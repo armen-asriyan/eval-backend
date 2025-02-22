@@ -16,7 +16,7 @@ const About = () => {
         </h2>
       </a>
 
-      <div className="about__container grid z-10">
+      <div className="about__container grid">
         <img src={avatar2} alt="avatar2" className="about__img" />
 
         <div className="about__data grid">

@@ -10,7 +10,7 @@ aside {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  z-index: 11;
+  z-index: var(--z-navbar); /* 100 */
   transition: 0.3s;
 }
 
@@ -57,7 +57,7 @@ aside {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: var(--z-navbar-toggle); /* 100 */
   transition: 0.3s;
   font-size: 1rem;
   display: none;

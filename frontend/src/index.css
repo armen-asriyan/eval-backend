@@ -29,6 +29,15 @@
 
   /*=============== Border Radius ===============*/
   --border-radius: 20px;
+
+  /*=============== z index ===============*/
+  --z-shapes: 10;
+  --z-container: 20;
+  --z-navbar: 100;
+  --z-navbar-toggle: 100;
+  --z-modal-bg: 200;
+  --z-modal-content: 300;
+  --z-modal-loading-overlay: 400;
 }
 
 [data-theme="dark"] {
@@ -112,11 +121,6 @@ img {
 }
 
 /*=============== Resusable CSS Classes ===============*/
-
-.z-10 {
-  position: relative;
-  z-index: 10;
-}
 
 .container {
   max-width: 1080px;

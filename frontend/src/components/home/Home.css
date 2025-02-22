@@ -11,6 +11,8 @@
 .intro {
   max-width: 540px;
   text-align: center;
+  position: relative;
+  z-index: var(--z-container);
 }
 
 .home__img {
@@ -92,6 +94,7 @@
   height: 100%;
   width: 100%;
   pointer-events: none;
+  z-index: var(--z-shapes);
 }
 
 .shape {

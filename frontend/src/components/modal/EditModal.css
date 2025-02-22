@@ -5,7 +5,7 @@
   top: 0;
   left: 0;
   background-color: rgb(0 0 0 / 50%);
-  z-index: 1000;
+  z-index: var(--z-modal-bg); /* 200 */
 }
 
 .edit-modal-content {
@@ -20,6 +20,7 @@
   padding: 1.875rem;
   border-radius: var(--border-radius);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: var(--z-modal-content); /* 300 */
 }
 
 .edit-modal-content .skill-form {
@@ -109,7 +110,7 @@
   top: 0;
   left: 0;
   background-color: rgb(0 0 0 / 50%);
-  z-index: 1000;
+  z-index: var(--z-modal-loading-overlay); /* 400 */
   display: flex;
   align-items: center;
   justify-content: center;

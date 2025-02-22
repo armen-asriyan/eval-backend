@@ -67,7 +67,7 @@ const Skills = ({ onEditSkill }) => {
         </h2>
       </a>
 
-      <div className="skills__container grid z-10">
+      <div className="skills__container grid">
         {isLoading ? (
           <h3 className="skills__title">Chargement...</h3>
         ) : error ? (

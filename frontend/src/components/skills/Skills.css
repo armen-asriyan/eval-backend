@@ -2,6 +2,9 @@
   grid-template-columns: repeat(3, 1fr);
   column-gap: 1.875rem;
   row-gap: 2rem;
+  position: relative;
+  z-index: var(--z-container);
+  padding-bottom: 2rem;
 }
 
 .skills__card {

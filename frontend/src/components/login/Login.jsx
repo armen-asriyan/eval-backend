@@ -47,22 +47,18 @@ const Login = () => {
         window.location.href = "/dashboard";
       }
     } catch (err) {
-      setMessage(err.response?.data?.message || "Erreur de connexion"); // Display error message
+      setMessage(err.response?.data?.message || "Erreur de connexion");
     }
   };
 
   return (
     <section className="home container" id="home">
-      <div className="intro z-10">
+      <div className="intro">
         <h1 className="home__name login-title" style={{ marginBottom: "1rem" }}>
           Se Connecter
         </h1>
 
-        <form
-          onSubmit={handleLogin}
-          className="login-form z-10"
-          autoComplete="on"
-        >
+        <form onSubmit={handleLogin} className="login-form" autoComplete="on">
           <label htmlFor="email-input">
             Email
             <input
