@@ -4,6 +4,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .intro {
@@ -35,13 +37,6 @@
 
 .home__social-link:hover {
   color: hsl(43, 100%, 68%);
-}
-
-.scroll__down {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 0;
-  width: 100%;
 }
 
 .home__scroll-name {

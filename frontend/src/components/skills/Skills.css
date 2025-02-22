@@ -71,9 +71,14 @@
   width: 20px;
 }
 
+[data-theme="dark"] .skills__category:hover,
+[data-theme="dark"] .skills__level:hover {
+  color: #fff;
+}
+
 .skills__category:hover,
 .skills__level:hover {
-  color: #fff;
+  color: #000;
 }
 
 .skills__img {
@@ -86,9 +91,9 @@
 }
 
 .skills__title {
-  font-size: var(--h3-font-size);
+  font-size: var(--h2-font-size);
   margin-bottom: 1rem;
-  color: var(--text-color);
+  color: var(--body-color);
 }
 
 .skills__title.add-skill svg {
@@ -132,12 +137,7 @@
   color: var(--title-color);
 }
 
-.skills__card:nth-child(2n) .skills__description {
-  color: var(--title-color);
-}
-
-[data-theme="dark"] .skills__card:nth-child(2n) .skills__title,
-[data-theme="dark"] .skills__card:nth-child(2n) .skills__description {
+[data-theme="dark"] .skills__card:nth-child(2n) .skills__title {
   color: var(--body-color);
 }
 

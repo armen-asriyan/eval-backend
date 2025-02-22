@@ -16,9 +16,8 @@ const Home = () => {
         <span className="home__education" style={{ marginBottom: "1rem" }}>
           Je suis un Développeur Web
         </span>
-
-        <ScrollDown />
       </div>
+      <ScrollDown />
 
       <Shapes />
     </section>
