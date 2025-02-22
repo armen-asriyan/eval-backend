@@ -54,6 +54,7 @@ const Sidebar = (props) => {
           className="nav__logo"
           style={{ width: "3rem" }}
           aria-label="Lien vers la page d'accueil"
+          onClick={() => showMenu(!toggle)}
         >
           <img src={props.theme === "light" ? LightLogo : Logo} alt="logo" />
         </Link>
