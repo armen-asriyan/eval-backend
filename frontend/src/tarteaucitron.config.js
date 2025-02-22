@@ -1,6 +1,6 @@
 (function waitForTarteaucitron() {
   if (typeof window.tarteaucitron !== "undefined") {
-    const lang = navigator.language.split("-")[0];
+    const lang = navigator.language;
 
     window.tarteaucitronForceLanguage = lang; // Configuration de la langue
 
