@@ -1,21 +1,21 @@
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 
 // Function to update the document title
-function useDocumentTitle(title, prevailOnUnmount = false) {
-  const defaultTitle = useRef(document.title);
+function useDocumentTitle(title) {
+  //   const defaultTitle = useRef(document.title);
 
   useEffect(() => {
     document.title = `${title} | John Doe Portfolio`; // Change the title;
   }, [title]);
 
-  useEffect(
-    () => () => {
-      if (!prevailOnUnmount) {
-        document.title = defaultTitle.current;
-      }
-    },
-    []
-  );
+  //   useEffect(
+  //     () => () => {
+  //       if (!prevailOnUnmount) {
+  //         document.title = defaultTitle.current;
+  //       }
+  //     },
+  //     []
+  //   );
 }
 
 export default useDocumentTitle;
