@@ -1,28 +1,36 @@
-// Importer le module app.js
+// Import app
 import app from "./app.js";
 
-// Importer la connexion à la base de données MongoDB
+// Import the database connection function
 import connectDB from "./src/config/db.js";
 
+// Define the port
 const PORT = process.env.PORT || 3030;
 
-// Fonction pour démarrer le serveur
+// Function to start the server
 const startServer = async () => {
   try {
-    // Connexion à la base de données MongoDB
+    // Try to connect to the database
     await connectDB();
 
-    // Demarrer le serveur Express
+    // Start the server
     app.listen(PORT, () => {
-      console.log(`Serveur tourne sur ${PORT}`);
+      // Log a message in the console only in development
+      if (process.env.NODE_ENV === "development") {
+        console.log(`Server running on port ${PORT}`);
+      }
     });
   } catch (error) {
-    console.error(`Erreur lors du demarrage du serveur : ${error}`);
-
-    // Quitter le processus Node en cas d'erreur
+    // Log the error object only in development
+    if (process.env.NODE_ENV === "development") {
+      console.error(`Error during server launch : ${error}`);
+    } else {
+      console.error("Server launch failed");
+    }
+    // Exit node process
     process.exit(1);
   }
 };
 
-// Demarrer le serveur
+// Start the server
 startServer();

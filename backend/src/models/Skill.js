@@ -1,6 +1,7 @@
-// Importer mongoose
+// Import mongoose
 import mongoose from "mongoose";
 
+// MAP object with possible categories
 export const POSSIBLE_CATEGORIES = {
   frontend: "Competences Frontend",
   backend: "Competences Backend",
@@ -9,39 +10,39 @@ export const POSSIBLE_CATEGORIES = {
   autres: "Autres Competences",
 };
 
+const lastIndex = Object.keys(POSSIBLE_CATEGORIES).length - 1;
+
+// MAP object with possible levels
 export const POSSIBLE_LEVELS = {
   debutant: "Debutant",
   intermediaire: "Intermédiaire",
   expert: "Expert",
 };
 
-// Créer un schéma de skills (de l'owner de portfolio)
+// Create a skill schema
 const skillSchema = new mongoose.Schema({
   title: {
-    // Titre de skill
     type: String,
     trim: true,
-    minLength: [3, "Le titre doit avoir au moins 3 caractères"],
-    maxLength: [50, "Le titre doit avoir au plus 50 caractères"],
-    required: [true, "Le titre est requis"],
+    minLength: [3, "The title must have at least 3 characters"],
+    maxLength: [50, "The title must have at most 50 characters"],
+    required: [true, "The title is required"],
   },
   category: {
-    // Categorie de skill
     type: String,
-    required: [true, "La categorie est requise"],
+    required: [true, "The category is required"],
     enum: Object.keys(POSSIBLE_CATEGORIES),
-    default: "autres",
+    default: Object.keys(POSSIBLE_CATEGORIES)[lastIndex],
     lowercase: true,
   },
   level: {
-    // Niveau de skill
     type: String,
-    required: [true, "Le niveau est requis"],
+    required: [true, "The level is required"],
     enum: Object.keys(POSSIBLE_LEVELS),
-    default: "debutant",
+    default: Object.keys(POSSIBLE_LEVELS)[0],
   },
   image_URL: {
-    // URL de l'image (Cloudinary)
+    // Cloudinary image URL
     public_id: {
       type: String,
       default: "",
@@ -52,15 +53,15 @@ const skillSchema = new mongoose.Schema({
     },
   },
   userId: {
-    // Utilisateur qui a ajouté le skill
-    type: mongoose.Schema.Types.ObjectId, // ID de l'utilisateur
+    // User who created the skill
+    type: mongoose.Schema.Types.ObjectId, // User ID
     ref: "User",
-    required: [true, "L'utilisateur est requis"],
+    required: [true, "User is required"],
   },
 });
 
-// Créer un modele de skill
+// Create the model
 const Skill = mongoose.model("Skill", skillSchema);
 
-// Exporter le modele
+// Export the model
 export default Skill;

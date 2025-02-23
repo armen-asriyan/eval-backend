@@ -1,34 +1,41 @@
-// Importer les modules nécessaires pour la connexion à la base de données
+// Import mongoose
 import mongoose from "mongoose";
 
+// Database name ('test-db' for fallback)
 const DB_NAME = process.env.DB_NAME || "test-db";
 
-const MONGO_URI =
-  `${process.env.MONGO_URI}${DB_NAME}` ||
-  process.env.MONGO_URI ||
-  `mongodb://localhost:27017/${DB_NAME}`;
+// MongoDB URI
+const MONGO_URI = process.env.MONGO_URI
+  ? `${process.env.MONGO_URI}${DB_NAME}`
+  : `mongodb://localhost:27017/${DB_NAME}`; // "test-db"
 
-// Fonction pour connecter à la base de données
+// Function to connect to the database
 const connectDB = async () => {
-  // Tente de se connecter à la base de données
   try {
-    // Connexion à la base de données
+    // Connect to the database
     const conn = await mongoose.connect(MONGO_URI);
 
-    // Afficher un message de succès avec le nom de l'hôte
-    // console.log(
-    //   `Connexion à la base de données établie : ${conn.connection.host}`
-    // );
+    // Success message with hostname (only in development)
+    if (process.env.NODE_ENV === "development") {
+      console.log(
+        `Connexion à la base de données établie : ${conn.connection.host}`
+      );
+    }
 
-    // Retourner la connexion (pour utilisation ultérieure)
+    // Return the connection (if necessary)
     return conn;
   } catch (error) {
-    console.error(
-      `Erreur de connexion à la base de données : ${error.message}`
-    );
-    process.exit(1); // Arrêter le processus (Node) si la connexion échoue
+    // Detailed error message (only in development)
+    if (process.env.NODE_ENV === "development") {
+      console.error(
+        `Error while connecting to the database : ${error.message}`
+      );
+    } else {
+      console.error("La connexion à la base de données a échoué");
+    }
+    process.exit(1); // Exit the node process
   }
 };
 
-// Exporter la fonction connectDB
+// Export the function
 export default connectDB;

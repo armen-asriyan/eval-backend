@@ -1,7 +1,7 @@
-// Import les modules necessaires
+// Import express
 import express from "express";
 
-// Dotenv est chargé depuis "npm run dev"
+// Dotenv is loaded within "dev" script
 
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -9,15 +9,15 @@ import helmet from "helmet";
 
 import morganMiddleware from "./src/middlewares/morganMiddleware.js";
 
-// Créer une instance d'express
+// Create an Express application
 const app = express();
 
-// Middleware pour parser les corps de la requête en JSON
+// Middleware to parse JSON
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-// Utiliser cors
+// CORS Configuration
 app.use(
   cors({
     origin: process.env.CLIENT_URL || "http://localhost:5000",
@@ -25,28 +25,28 @@ app.use(
   })
 );
 
-// Utiliser helmet
+// Use helmet to secure headers
 app.use(helmet());
 
-// Utiliser cookieParser
+// Use cookie parser to read cookies
 app.use(cookieParser());
 
-// Importer les routes
+// Import routes
 import userRoutes from "./src/routes/userRoutes.js";
 import skillRoutes from "./src/routes/skillRoutes.js";
 
-// Importer les middlewares
+// Import global error handler
 import errorHandler from "./src/middlewares/errorHandler.js";
 
-// Utiliser morgan (qui utilise winston pour enregistrer les logs)
+// Use morgan middleware to log HTTP requests (which uses Winston logger)
 app.use(morganMiddleware);
 
-// Utiliser les routes
+// Routing
 app.use("/api/auth", userRoutes);
 app.use("/api/skills", skillRoutes);
 
-// Middleware pour traiter les erreurs
+// Global error handler
 app.use(errorHandler);
 
-// Exporter l'application
+// Export the Express application
 export default app;

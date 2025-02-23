@@ -1,39 +1,40 @@
 // Import express
 import express from "express";
 
-// Importer le controleur UserController
+// Import the controller
 import {
   registerUser,
   loginUser,
   logoutUser,
 } from "../controllers/UserController.js";
 
-// Importer les validations
+// Import validation rules
 import {
   registerUserRules,
   loginUserRules,
 } from "../validations/authValidations.js";
 
-// Importer les middlewares
+// Import the middlewares
 import validateRequest from "../middlewares/validateRequest.js";
 import protect from "../middlewares/protect.js";
+import loginlimiter from "../middlewares/rateLimiter.js";
 
-// Créer un routeur
+// Create a router instance
 const router = express.Router();
 
-// Route pour créer un nouvel utilisateur (l'owner de portfolio), cette route est accessible seulement par l'admin
+// Route to register a new user (only for admin, for now)
 router.post("/register", registerUserRules, validateRequest, registerUser);
 
-// Route pour authentifier un utilisateur
-router.post("/login", loginUserRules, validateRequest, loginUser);
+// Route to login a user
+router.post("/login", loginUserRules, validateRequest, loginlimiter, loginUser);
 
-// Route pour la déconnexion de l'utilisateur
+// Route to logout a user
 router.post("/logout", logoutUser);
 
-// Route pour récupérer un utilisateur connecté (pour le traiter en frontend)
+// Route to check if the user is logged in
 router.get("/check", protect, (req, res) =>
   res.status(200).json({ isAuth: true, user: req.user })
 );
 
-// Exporter le routeur
+// Export router instance
 export default router;

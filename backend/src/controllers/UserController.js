@@ -1,49 +1,50 @@
-// Importer le modèle d'utilisateur
+// Import the User model
 import User from "../models/User.js";
 
-// Importer la fonction pour hacher et comparer le mot de passe
+// Import the function to hash and compare passwords
 import { comparePassword, hashPassword } from "../services/hashPassword.js";
 
-// Importer la fonction pour générer un token JWT
+// Import the function to generate a JWT token
 import generateToken from "../utils/tokenUtil.js";
 
-// Fonction pour créer un nouvel utilisateur (l'owner de portfolio), cette fonction est accessible seulement par l'admin
+// Function to create a new user this function is accessible only by admin (for now)
 export const registerUser = async (req, res, next) => {
   try {
-    // Code pour verifier si il y a deja un admin
+    // Check if there is already an admin
     const admin = await User.findOne({ role: "admin" });
 
     if (admin) {
       return next({
         statusCode: 400,
-        message: "Admin existant, création impossible",
+        message: "Only one admin is allowed during initial setup",
       });
     }
 
-    // Destructurer les données du corps de la requête
+    // Destructure the data from the request body
     const { name, email, password, role } = req.body;
 
-    // Vérifier si les champs obligatoires sont présents
+    // Check if the required fields are present
     if (!name || !email || !password) {
       return next({
         statusCode: 400,
-        message: "Tous les champs sont obligatoires",
+        message: "All fields are required",
       });
     }
 
-    // Vérifier si l'utilisateur existe déjà
+    // Check if the user already exists
     const existingUser = await User.findOne({ email });
+
     if (existingUser) {
       return next({
         statusCode: 400,
-        message: "Utilisateur existant",
+        message: "User already exists",
       });
     }
 
-    // Hasher le mot de passe
+    // Hash the password
     const hashedPassword = await hashPassword(password);
 
-    // Créer un nouvel utilisateur
+    // Create a new user
     const user = await User.create({
       name,
       email,
@@ -51,80 +52,86 @@ export const registerUser = async (req, res, next) => {
       role,
     });
 
-    // Renvoyer un message de confirmation
+    // Return a confirmation message
     res.status(201).json({ message: "Utilisateur enregistré", user });
   } catch (error) {
     next(error);
   }
 };
 
-// Fonction pour authentifier un utilisateur
+// Function to authenticate a user
 export const loginUser = async (req, res, next) => {
   try {
-    // Destructurer les données du corps de la requête
+    // Destructure the data from the request body
     const { email, password } = req.body;
 
     // Vérifier si les champs sont présents
     if (!email || !password) {
       return next({
         statusCode: 400,
-        message: "Tous les champs sont obligatoires",
+        message: "All fields are required",
       });
     }
 
-    // Rechercher l'utilisateur par son adresse email
+    // Search for the user by email
     const user = await User.findOne({ email })
       .select("+password")
       .populate("skills");
 
-    // Vérifier si l'utilisateur existe
+    // Check if the user exists
     if (!user) {
       return next({
         statusCode: 401,
-        message: "Identifiants incorrects",
+        message: "Invalid email or password",
       });
     }
 
-    // Comparer le mot de passe
+    // Compare the password
     const isMatch = await comparePassword(password, user.password);
+
     if (!isMatch) {
       return next({
         statusCode: 401,
-        message: "Identifiants incorrects",
+        message: "Invalid email or password",
       });
     }
 
-    // Générer un token JWT
+    // Generate a JWT token
     const token = generateToken(user._id);
 
-    // Renvoyer le token JWT en cookie
+    // Send the JWT token in a cookie
     res.cookie("token", token, {
-      httpOnly: true, // Sécuriser le cookie
-      secure: process.env.NODE_ENV === "production", // Seulement en mode production
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 24 * 60 * 60 * 1000, // Duree de vie du cookie (1 jour)
+      httpOnly: true, // Secure the cookie
+      secure: process.env.NODE_ENV === "production", // Use https only in production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cors policy only in production
+      maxAge: 24 * 60 * 60 * 1000, // Cookie lifetime (1 day)
     });
 
-    // Envoyer un message de confirmation
-    res.status(200).json({ message: "Utilisateur authentifié", user, token });
+    // Send a confirmation message
+    res.status(200).json({ message: "User authenticated", user, token });
   } catch (error) {
     next(error);
   }
 };
 
-// Fonction pour la déconnexion de l'utilisateur
+// Function to log out the user
 export const logoutUser = async (req, res, next) => {
   try {
-    // Effacer le cookie de connexion
+    // Check if the user is logged in
+    if (!req.cookies.token) {
+      return res.status(400).json({ message: "User is not logged in" });
+    }
+
+    // Clear the login cookie
     res.clearCookie("token", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // This is important for Chrome
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      path: "/",
+      httpOnly: true, // Secure the cookie
+      secure: process.env.NODE_ENV === "production", // Use https only in production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cors policy only in production
+      path: "/", // Cookie path
     });
 
-    // Renvoyer un message de confirmation
-    res.status(200).json({ message: "Utilisateur déconnecté" });
+    // Send a confirmation message
+    res.status(200).json({ message: "Logout successful" });
   } catch (error) {
     next(error);
   }

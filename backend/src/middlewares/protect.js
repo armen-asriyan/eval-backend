@@ -1,36 +1,46 @@
-// Importer le module jsonwebtoken
+// Import jsonwebtoken
 import jwt from "jsonwebtoken";
 
-// Importer le modèle d'utilisateur
+// Import User model
 import User from "../models/User.js";
 
-// Middleware pour vérifier le token JWT
+// Middleware to check if the user is logged in
 const protect = async (req, res, next) => {
-  // Récupérer le token JWT depuis les cookies
+  // Get token from cookie
   const token = req.cookies.token;
 
-  // Si le token n'est pas présent, renvoyer une erreur
+  // If token is not present, return an error
   if (!token) {
-    return res.status(401).json({ message: "Utilisateur non connecté" });
+    return res.status(401).json({ message: "User is not logged in" });
   }
 
   try {
-    // Vérifier et décodifier le token JWT
+    // Verify the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Rechercher l'utilisateur par son ID dans la base de données et exclure le mot de passe
+    // If the token is not valid, return an error
+    if (!decoded) {
+      return res.status(401).json({ message: "Invalid token" });
+    }
+
+    // Find the user in the database
     const user = await User.findById(decoded.id).select("-password");
 
-    // Stocker l'id de l'utilisateur dans la requête
+    // If the user is not found, return an error
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
+
+    // Set the user in the request
     req.user = user;
 
-    // Si le token est valide, passer au middleware suivant
+    // If the user is found, continue
     next();
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Erreur durant la verification du token" });
+    res.status(500).json({ message: "Error during token verification" });
   }
 };
 
-// Exporter le middleware protect
+// Export the middleware
 export default protect;

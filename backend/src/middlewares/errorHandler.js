@@ -1,18 +1,22 @@
-// Middleware pour traiter les erreurs
+// Global error handler middleware
 const errorHandler = (err, req, res, next) => {
-  // Logger l'erreur dans la console
-  console.error(` errorHandler: ${err.stack}`);
+  // Log error stack
+  if (process.env.NODE_ENV === "development") {
+    console.error(` errorHandler: ${err.stack}`);
+  } else {
+    console.error(` errorHandler: ${err.message}`);
+  }
 
-  // Déterminer le code d'erreur, par défaut 500
+  // Determine error status code
   const statusCode = err.statusCode || 500;
 
-  // Déterminer le message d'erreur
-  const message = err.message || "Erreur interne du serveur";
+  // Determine error message
+  const message = err.message || "Internal Server Error";
 
-  // Déterminer le code d'erreur (utile pour les erreurs spécifiques comme MongoDB)
+  // Determine error code (useful for MongoDB errors)
   const errorCode = err.code || "SERVER_ERROR";
 
-  // Réponse JSON
+  // Send error response
   res.status(statusCode).json({
     success: false,
     message,
@@ -21,4 +25,5 @@ const errorHandler = (err, req, res, next) => {
   });
 };
 
+// Export error handler middleware
 export default errorHandler;

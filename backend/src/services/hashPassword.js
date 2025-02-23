@@ -1,33 +1,34 @@
-// Importer le module bcrypt
+// Import bcrypt
 import bcrypt from "bcrypt";
 
-// Le nombre de tours de hachage
+// Number of salt rounds (cycles of hashing)
 const SALT_ROUNDS = 10;
 
-// Fonction pour hacher le mot de passe
+// Function to hash a password
 export const hashPassword = async (password) => {
-  // Hacher le mot de passe
   try {
-    // Vérifier si le mot de passe est present
+    // Check if password is provided
     if (!password) {
-      throw new Error("Le mot de passe est manquant");
+      throw new Error("Password is required");
     }
 
-    // Générer un sel, utilisable pour hacher le mot de passe
+    // Generate salt
     const salt = await bcrypt.genSalt(SALT_ROUNDS);
 
-    // Retourner le mot de passe haché
+    // Return hashed password
     return await bcrypt.hash(password, salt);
   } catch (error) {
-    console.error(`Erreur durant le hachage du mot de passe: ${error.message}`);
-    throw new Error(
-      `Erreur durant le hachage du mot de passe: ${error.message}`
-    );
+    if (process.env.NODE_ENV === "development") {
+      console.error(`Error during password hashing: ${error.stack}`);
+      throw new Error(`Error during password hashing: ${error.stack}`);
+    } else {
+      console.error(`Error during password hashing: ${error.message}`);
+      throw new Error(`Error during password hashing: ${error.message}`);
+    }
   }
 };
 
-// Fonction pour comparer le mot de passe haché et le mot de passe non haché
+// Function to compare a password with a hashed password
 export const comparePassword = async (password, hashedPassword) => {
-  // Comparer le mot de passe haché et le mot de passe non haché
   return await bcrypt.compare(password, hashedPassword);
 };

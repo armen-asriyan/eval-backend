@@ -60,6 +60,7 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 - Express Validator for input validation
 - Helmet for security headers
 - CORS support
+- express-rate-limit to limit repeated requests
 - Development tools:
   - Dotenv for environment variables
   - Nodemon for development server reloading
@@ -72,7 +73,7 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 - Node.js (v14 or higher)
 - MongoDB
 - Cloudinary account
-- npm or yarn
+- Yarn
 
 ### Installation
 
@@ -87,7 +88,7 @@ cd eval-backend
 
 ```bash
 cd backend
-npm install
+yarn install
 ```
 
 3. Install frontend dependencies
@@ -143,7 +144,7 @@ yarn install
 
 ```bash
 cd backend
-npm run dev
+yarn run dev
 ```
 
 6. Run the frontend app

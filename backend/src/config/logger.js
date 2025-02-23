@@ -1,22 +1,29 @@
+// Import Winston
 import winston from "winston";
 
+const NODE_ENV = process.env.NODE_ENV;
+
+// Winston configuration
 const logger = winston.createLogger({
-  level: "info", // Niveau d'alerte par défaut
+  level: NODE_ENV === "development" ? "debug" : "info", // Level of the logs
   format: winston.format.combine(
-    // Colorer les logs
+    // Colorize output
     winston.format.colorize(),
-    // Combinaison des formats de logs
-    winston.format.timestamp(), // Ajouter une date et heure pour chaque log
-    winston.format.prettyPrint(),
+    // Combine differents formats
+    winston.format.timestamp(), // Add timestamp
+    winston.format.prettyPrint(), // Enable pretty print
+    // Custom format
     winston.format.printf(({ timestamp, level, message }) => {
-      const localTime = new Date(timestamp).toLocaleString();
-      return `${localTime} [${level}]: ${message}`;
+      const localTime = new Date(timestamp).toLocaleString(); // Get local time
+      return `${localTime} [${level}]: ${message}`; // Return formatted log
     })
   ),
+  // Where to send the logs
   transports: [
-    new winston.transports.Console(), // Afficher les logs dans la console
-    new winston.transports.File({ filename: "logs/all.log" }), // Enregistrer les logs dans un fichier
+    new winston.transports.Console(), // Send logs to the console
+    new winston.transports.File({ filename: "logs/all.log" }), // Save logs to a file
   ],
 });
 
+// Export the logger
 export default logger;

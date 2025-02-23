@@ -1,17 +1,17 @@
-// Importer le module pour logger les requêtes HTTP
+// Importer morgan to log HTTP requests
 import morgan from "morgan";
 
-// Importer winston pour enregistrer les logs
+// Import configured winston logger
 import logger from "../config/logger.js";
 
-// Middleware morgan en utilisant winston pour enregistrer les logs
-
+// Middleware to log HTTP requests with winston
 const morganMiddleware = morgan("combined", {
   stream: {
     write: (message) => {
-      logger.info(message.trim()); // Logger la requête HTTP avec winston
+      logger.info(message.trim()); // Log the message (using winston logger)
     },
   },
 });
 
+// Export the middleware
 export default morganMiddleware;

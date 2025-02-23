@@ -1,59 +1,58 @@
-// Importer express-validator
+// Import express-validator
 import { body, param } from "express-validator";
 
-// Les regles de validation pour registerUser
+// Validation rules for registerUser
 export const registerUserRules = [
   body("name")
     .isString()
     .trim()
     .notEmpty()
-    .withMessage("Le nom est obligatoire")
+    .withMessage("The name is required")
     .isLength({ min: 3, max: 50 })
     .withMessage(
-      "Le nom doit avoir au moins 3 caractères et au plus 50 caractères"
+      "The name must have at least 3 characters and at most 50 characters"
     ),
   body("email")
     .isString()
     .trim()
     .notEmpty()
-    .withMessage("L'email est obligatoire")
+    .withMessage("Email is required")
     .isEmail()
-    .withMessage("Veuillez entrer une adresse email valide"),
+    .withMessage("Enter a valid email address"),
 
   body("password")
     .isString()
     .trim()
     .notEmpty()
-    .withMessage("Le mot de passe est obligatoire")
+    .withMessage("The password is required")
     .isLength({ min: 6, max: 200 })
     .withMessage(
-      "Le mot de passe doit avoir au moins 6 caractères et au plus 200 caractères"
+      "The password must have at least 6 characters and at most 200 characters"
     ),
 
   body("role")
     .isString()
     .trim()
-    // Verifier le role même si par defaut il est user
     .notEmpty()
-    .withMessage("Le role est obligatoire")
+    .withMessage("Role is missing")
     .isIn(["user", "admin"])
-    .withMessage("Le role doit etre user ou admin")
-    .default("user"), // Par defaut l'utilisateur est un user
+    .withMessage("The role must be user or admin")
+    .default("user"),
 ];
 
-// Les regles de validation pour loginUser
+// Validation rules for loginUser
 export const loginUserRules = [
   body("email")
     .isString()
     .trim()
     .notEmpty()
-    .withMessage("L'email est obligatoire")
+    .withMessage("Email is required")
     .isEmail()
-    .withMessage("Veuillez entrer une adresse email valide"),
+    .withMessage("Enter a valid email address"),
 
   body("password")
     .isString()
     .trim()
     .notEmpty()
-    .withMessage("Le mot de passe est obligatoire"),
+    .withMessage("The password is required"),
 ];

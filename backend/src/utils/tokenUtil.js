@@ -1,13 +1,13 @@
-// Importer jsonwebtoken
+// Import jsonwebtoken
 import jwt from "jsonwebtoken";
 
-// Fonction pour gérérer un token JWT
+// Function to generate a JWT token
 const generateToken = (id) => {
-  // Retourner le token JWT
+  // Return the token
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
+    expiresIn: "1d", // Token expires in 1 day
   });
 };
 
-// Exportation du module
+// Export module
 export default generateToken;

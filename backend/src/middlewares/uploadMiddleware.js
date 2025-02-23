@@ -1,38 +1,36 @@
+// Import multer to handle file uploads
 import multer from "multer";
-import { fileTypeFromBuffer } from "file-type";
 
-// Configurer bufferStorage
+// Configure multer to store files in RAM
 const storage = multer.memoryStorage();
 
-// Filtrer les fichiers avant de les stocker dans le buffer
+// Function to filter files
 const fileFilter = (req, file, cb) => {
-  // Les types possibles
+  // Allowed file types
   const allowedTypes = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
 
-  // S'il n'y a pas de mimetype, ou si le mimetype n'est pas autorisé
+  // If the file type is not allowed
   if (!file.mimetype || !allowedTypes.includes(file.mimetype)) {
     return cb(
       new Error(
-        `Format de fichier non autorisé. Types autorisés: ${allowedTypes.join(
-          ", "
-        )}`
+        `File format not allowed, allowed formats: ${allowedTypes.join(", ")}`
       )
     );
   }
 
   /**
    * cb(error, acceptFile)
-   * - error : Passer un message d'erreur
-   * - acceptFile : Passer 'true' si le fichier est valide, sinon 'false'
+   * - error : Pass the error object
+   * - acceptFile : Pass true if the file is accepted
    */
   cb(null, true);
 };
 
 /**
- * @property {Object} storage : Configurer le type de stockage (buffer)
- * @property {Object} limits : Limiter la taille des fichiers
- * @property {Object} fileFilter : Configurer le filtre des fichiers
- * @returns Stocker le fichier dans le buffer
+ * @property {Object} storage : Configure the storage (RAM, in this case)
+ * @property {Object} limits : Limit file size
+ * @property {Object} fileFilter : Use the fileFilter function
+ * @returns File stored in RAM (buffer)
  */
 const upload = multer({
   storage,
@@ -40,5 +38,5 @@ const upload = multer({
   fileFilter,
 });
 
-// Exporter multer
+// Export multer
 export default upload;

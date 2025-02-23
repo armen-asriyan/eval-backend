@@ -1,7 +1,7 @@
-// Importer express
+// Import express
 import express from "express";
 
-// Importer les controllers
+// Import the controller
 import {
   createSkill,
   getSkills,
@@ -10,28 +10,30 @@ import {
   deleteSkill,
 } from "../controllers/SkillController.js";
 
-// Importer les validations
+// Import validation rules
 import {
-  getSkillsRules,
+  // getSkillsRules,
   createSkillRules,
   updateSkillRules,
   deleteSkillRules,
 } from "../validations/skillValidations.js";
 
-// Importer les middlewares
+// Import the middlewares
 import protect from "../middlewares/protect.js";
 import isAdmin from "../middlewares/isAdmin.js";
 import upload from "../middlewares/uploadMiddleware.js";
 import validateRequest from "../middlewares/validateRequest.js";
 
-// Créer un routeur
+// Configure the router
 const router = express.Router();
 
-// Récupérer tous les skills
-// router.get("/", protect, isAdmin, getSkillsRules, validateRequest, getSkills);
+// Get all skills
 router.get("/", getSkills);
 
-// Créer une route pour créer un skill
+// Get all skills of logged in user
+// router.get("/", protect, isAdmin, getSkillsRules, validateRequest, getSkills);
+
+// Create a new skill
 router.post(
   "/",
   protect,
@@ -42,10 +44,10 @@ router.post(
   createSkill
 );
 
-// Récupérer
+// Get a single skill by id
 // router.get("/:id", protect, getSingleSkill);
 
-// Modifier un skill
+// Update a skill
 router.put(
   "/:id",
   protect,
@@ -56,7 +58,7 @@ router.put(
   updateSkill
 );
 
-// Supprimer un skill
+// Delete a skill
 router.delete(
   "/:id",
   protect,
@@ -66,5 +68,5 @@ router.delete(
   deleteSkill
 );
 
-// Exporter le routeur
+// Export the router instance
 export default router;
