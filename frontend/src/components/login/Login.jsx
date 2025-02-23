@@ -9,6 +9,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import useDocumentTitle from "../../useDocumentTitle";
 
 import axios from "axios";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const recaptchaSiteKey = process.env.REACT_APP_SITE_KEY;
@@ -16,6 +17,7 @@ const recaptchaSiteKey = process.env.REACT_APP_SITE_KEY;
 const Login = () => {
   useDocumentTitle("Connexion");
 
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -32,6 +34,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setMessage("");
+    setLoading(true);
 
     try {
       const captchaValue = recaptchaRef.current.getValue();
@@ -52,10 +55,14 @@ const Login = () => {
       }
     } catch (err) {
       setMessage(err.response?.data?.message || "Erreur de connexion");
+    } finally {
+      setLoading(false);
     }
   };
 
-  return (
+  return loading || isAuth ? (
+    <LoadingSpinner loading={loading} />
+  ) : (
     <section className="home container" id="home">
       <div className="intro">
         <h1 className="home__name login-title" style={{ marginBottom: "1rem" }}>

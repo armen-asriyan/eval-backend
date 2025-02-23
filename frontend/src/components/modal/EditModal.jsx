@@ -4,11 +4,11 @@ import {
   RiAddBoxLine,
   RiCloseLine,
   RiDeleteBin6Line,
-  RiLoader2Line,
   RiSave3Line,
 } from "react-icons/ri";
 
 import axios from "axios";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -203,17 +203,7 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
         {success && <p className="success">{success}</p>}
 
         {/* Loading spinner */}
-        <div
-          className="loading-modal"
-          style={{ display: loading ? "flex" : "none" }}
-        >
-          <div className="loading-modal__content">
-            <span className="loading-modal__spinner">
-              <RiLoader2Line />
-            </span>
-            <p>Chargement...</p>
-          </div>
-        </div>
+        <LoadingSpinner loading={loading} />
       </div>
     </div>
   );
