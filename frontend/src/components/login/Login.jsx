@@ -6,12 +6,16 @@ import Shapes from "../home/Shapes";
 
 import ReCAPTCHA from "react-google-recaptcha";
 
+import useDocumentTitle from "../../useDocumentTitle";
+
 import axios from "axios";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const recaptchaSiteKey = process.env.REACT_APP_SITE_KEY;
 
 const Login = () => {
+  useDocumentTitle("Connexion");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");

@@ -8,7 +8,11 @@ import Skills from "../skills/Skills";
 
 import EditModal from "../modal/EditModal";
 
+import useDocumentTitle from "../../useDocumentTitle";
+
 const Dashboard = () => {
+  useDocumentTitle("Dashboard");
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [skillToEdit, setSkillToEdit] = useState(null);
