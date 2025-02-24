@@ -45,13 +45,13 @@ const Logout = ({ toggle, showMenu }) => {
   return (
     <li className="nav__item">
       {/* Anchor tag for consistency with other sidebar items */}
-      <a
+      <button
         className="nav__link logout-button"
         onClick={() => handleLogout()}
         aria-label="Nav Se deconnecter"
       >
         {error ? <RiErrorWarningLine /> : <RiLogoutBoxLine />}
-      </a>
+      </button>
     </li>
   );
 };

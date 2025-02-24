@@ -35,7 +35,6 @@ const Sidebar = (props) => {
         <Link
           to="/"
           className="nav__logo"
-          style={{ width: "3rem" }}
           aria-label="Lien vers la page d'accueil"
           onClick={() => showMenu(!toggle)}
         >
