@@ -9,7 +9,7 @@ aside {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   z-index: var(--z-navbar); /* 100 */
   transition: 0.3s;
