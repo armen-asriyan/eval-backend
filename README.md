@@ -42,12 +42,15 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 
 ### Frontend
 
-- React with Vite for fast builds and instant HMR.
-- React Router DOM for routing
-- Axios for API calls
-- React Icons for icons
+- React with Vite: For fast builds and instant HMR.
+- React Router DOM: For routing
+- Axios: For API calls
+- React Icons: For icons
 - useHooks: A collection of modern, server-safe React hooks – from the ui.dev team.
 - react-router-hash-link : Hash link support for React Router
+- axios : Promise based HTTP client for the browser and node.js
+- react-google-recaptcha : Google reCAPTCHA component for React
+- use-local-storage : A simple React hook to store data in localStorage
 
 ### Backend
 
@@ -63,6 +66,7 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 - Express Validator for input validation
 - Helmet for security headers
 - CORS support
+- axios for API calls
 - express-rate-limit to limit repeated requests
 - Development tools:
   - Dotenv for environment variables
