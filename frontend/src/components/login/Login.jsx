@@ -121,7 +121,7 @@ const Login = () => {
         </form>
       </div>
       <Shapes />
-      {loading && <LoadingSpinner loading={loading} modal={true} />}
+      {loading && <LoadingSpinner loading={loading} fullscreen={true} />}
     </section>
   );
 };

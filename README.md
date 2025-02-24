@@ -45,6 +45,8 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 - React Router DOM
 - Axios for API calls
 - React Icons
+- useHooks: A collection of modern, server-safe React hooks – from the ui.dev team.
+- react-router-hash-link : Hash link support for React Router
 
 ### Backend
 
