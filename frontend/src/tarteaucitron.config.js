@@ -35,7 +35,7 @@
       partnersList: true,
     });
 
-    const recaptchaApiKey = import.meta.env.VITE_SITE_KEY;
+    const recaptchaApiKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
     window.tarteaucitron.user.recaptchaapi = recaptchaApiKey;
 

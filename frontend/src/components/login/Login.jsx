@@ -15,7 +15,7 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const recaptchaSiteKey = import.meta.env.VITE_SITE_KEY;
+const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
 const Login = () => {
   const isXSmallDevice = useMediaQuery("only screen and (max-width : 576px)");
@@ -40,16 +40,16 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const captchaValue = recaptchaRef.current?.getValue();
+      const captchaToken = recaptchaRef.current?.getValue();
 
-      if (!captchaValue) {
+      if (!captchaToken) {
         setMessage("Veuillez valider le captcha.");
         return;
       }
 
       const res = await axios.post(
         `${apiUrl}/api/auth/login`,
-        { email, password },
+        { email, password, captchaToken },
         { withCredentials: true }
       );
 

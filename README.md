@@ -42,10 +42,10 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 
 ### Frontend
 
-- React.js
-- React Router DOM
+- React with Vite for fast builds and instant HMR.
+- React Router DOM for routing
 - Axios for API calls
-- React Icons
+- React Icons for icons
 - useHooks: A collection of modern, server-safe React hooks – from the ui.dev team.
 - react-router-hash-link : Hash link support for React Router
 
@@ -124,6 +124,8 @@ yarn install
    NODE_ENV = 'development'
 
    CLIENT_URL='YOUR_CLIENT_URL (for cors)'
+
+   RECAPTCHA_SECRET_KEY = 'YOUR_RECAPTCHA_SECRET_KEY'
    ```
 
    4.3 Create frontend `.env` file:
@@ -135,12 +137,9 @@ yarn install
    with the following contents:
 
    ```ini
-   PORT = 'YOUR_PORT'
-
    VITE_API_URL = 'YOUR_BACKEND_API_URL'
 
-   VITE_SITE_KEY = 'YOUR_RECAPTCHA_SITE_KEY'
-   VITE_SECRET_KEY = 'YOUR_RECAPTCHA_SECRET_KEY'
+   VITE_RECAPTCHA_SITE_KEY = 'YOUR_RECAPTCHA_SITE_KEY'
    ```
 
 5. Start the backend server
@@ -157,7 +156,7 @@ cd ../frontend
 yarn run dev
 ```
 
-7. Open your browser and navigate to `http://localhost:YOUR_PORT`
+7. Open your browser and navigate to `http://localhost:5173` (default Vite port)
 
 🚀 That's it! You should now have a fully functional portfolio website with admin dashboard.
 
