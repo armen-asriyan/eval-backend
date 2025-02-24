@@ -10,6 +10,7 @@ const LoadingSpinner = ({ loading, isOverlay, fillParentVH }) => {
         display: loading ? "flex" : "none",
         position: isOverlay ? "fixed" : "relative",
         backgroundColor: isOverlay ? "rgb(0 0 0 / 50%)" : "transparent",
+        marginBottom: isOverlay ? 0 : "1rem",
         top: 0,
         left: 0,
         width: "100%",

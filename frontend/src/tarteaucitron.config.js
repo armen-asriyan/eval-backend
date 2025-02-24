@@ -2,7 +2,7 @@
   if (typeof window.tarteaucitron !== "undefined") {
     const lang = navigator.language;
 
-    window.tarteaucitronForceLanguage = lang; // Configuration de la langue
+    window.tarteaucitronForceLanguage = lang; // Language configuration
 
     window.tarteaucitron.init({
       privacyUrl: "",
@@ -10,7 +10,7 @@
       hashtag: "#tarteaucitron",
       cookieName: "tarteaucitron",
       orientation: "middle",
-      groupServices: true,
+      groupServices: false,
       showDetailsOnClick: true,
       serviceDefaultState: "wait",
       showAlertSmall: false,
@@ -35,13 +35,44 @@
       partnersList: true,
     });
 
-    const recaptchaApiKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
-
-    window.tarteaucitron.user.recaptchaapi = recaptchaApiKey;
-
     (window.tarteaucitron.job = window.tarteaucitron.job || []).push(
       "recaptcha"
     );
+
+    // Callback for the MutationObserver
+    const mutationCallback = () => {
+      // Check if the save button exists
+      const tarteaucitronSaveButton = document.getElementById(
+        "tarteaucitronSaveButton"
+      );
+
+      if (tarteaucitronSaveButton) {
+        // Define the function to handle the save button click
+        const handleConsentSave = () => {
+          window.location.reload();
+        };
+
+        // Add event listener to the save button
+        tarteaucitronSaveButton.addEventListener("click", handleConsentSave);
+
+        // Stop observing the target node since we found the button
+        observer.disconnect();
+      }
+    };
+
+    // Create an instance of MutationObserver and pass the callback function
+    const observer = new MutationObserver(mutationCallback);
+
+    // Start observing the target node
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    // Retry if tarteaucitron is not yet loaded
+    return () => {
+      observer.disconnect();
+    };
   } else {
     console.log("Waiting for tarteaucitron...");
     setTimeout(waitForTarteaucitron, 500); // Retry every 500ms

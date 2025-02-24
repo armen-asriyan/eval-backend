@@ -1,6 +1,6 @@
 import "./Login.css";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../authContext";
@@ -18,6 +18,20 @@ const apiUrl = import.meta.env.VITE_API_URL;
 const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
 const Login = () => {
+  const [isRecaptchaAllowed, setIsRecaptchaAllowed] = useState(null);
+
+  useEffect(() => {
+    const checkConsent = () => {
+      if (window.tarteaucitron?.state?.recaptcha !== undefined) {
+        setIsRecaptchaAllowed(window.tarteaucitron?.state?.recaptcha);
+      } else {
+        setTimeout(checkConsent, 500); // Retry every 500ms until it’s ready
+      }
+    };
+
+    checkConsent();
+  }, []);
+
   const isXSmallDevice = useMediaQuery("only screen and (max-width : 576px)");
 
   useDocumentTitle("Connexion");
@@ -102,17 +116,25 @@ const Login = () => {
             </label>
           </fieldset>
 
-          <ReCAPTCHA
-            sitekey={recaptchaSiteKey}
-            ref={recaptchaRef}
-            style={{
-              paddingBottom: "1rem",
-              margin: "0 auto",
-              transform: isXSmallDevice ? "scale(1)" : "scale(1.1)",
-              transformOrigin: "center center",
-            }}
-            // size={isXSmallDevice ? "compact" : "normal"}
-          />
+          {isRecaptchaAllowed === null ? (
+            <LoadingSpinner loading={true} isOverlay={false} />
+          ) : isRecaptchaAllowed ? (
+            <ReCAPTCHA
+              sitekey={recaptchaSiteKey}
+              ref={recaptchaRef}
+              style={{
+                paddingBottom: "1rem",
+                margin: "0 auto",
+                transform: isXSmallDevice ? "scale(1)" : "scale(1.1)",
+                transformOrigin: "center center",
+              }}
+              // size={isXSmallDevice ? "compact" : "normal"}
+            />
+          ) : (
+            <p style={{ textAlign: "center", marginBottom: "1rem" }}>
+              Veuillez autoriser les cookies.
+            </p>
+          )}
 
           <button type="submit" disabled={loading}>
             Se Connecter
