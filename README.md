@@ -149,7 +149,7 @@ yarn run dev
 
 **7. Open your browser and navigate to `http://localhost:5173` (default Vite port)**
 
-<p style="margin-top: 2rem; text-align: center">🚀 That's it! You should now have a fully functional portfolio website with admin dashboard.</p>
+<p align="center">🚀 That's it! You should now have a fully functional portfolio website with admin dashboard.</p>
 
 <p align="center">📌 Don't forget to create the first user with the `/register` endpoint</p>
 
@@ -157,13 +157,17 @@ yarn run dev
 
 Desktop:
 
-<img src="./documentation/desktop-screenshot.png" style="margin-bottom: 2rem;">
+<img src="./documentation/desktop-screenshot.png">
+<br />
+<br />
 
 Mobile:
 
 <img src="./documentation/mobile-screenshot.png" width="50%">
 
- <p style="margin-top: 2rem; margin-bottom: 2rem; text-align: center; font-size: 2rem">👉 <a href="https://eval-backend.vercel.app">Live Demo on Vercel</p>
+<br />
+<h2 align="center">👉 <a href="https://eval-backend.vercel.app">Live Demo on Vercel</h2></a>
+<br />
 
 ## Credits
 

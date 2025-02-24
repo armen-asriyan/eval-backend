@@ -20,7 +20,12 @@ app.use(express.urlencoded({ extended: true }));
 // CORS Configuration
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5000",
+    origin: [
+      process.env.CLIENT_URL || "http://localhost:5173", // Default to Vite port
+      "https://www.google.com", // For reCAPTCHA
+      "https://www.gstatic.com", // For reCAPTCHA
+      "https://res.cloudinary.com", // For Cloudinary
+    ],
     credentials: true,
   })
 );
