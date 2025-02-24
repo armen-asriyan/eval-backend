@@ -43,35 +43,34 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 ### Frontend
 
 - React with Vite: For fast builds and instant HMR.
-- React Router DOM: For routing
-- Axios: For API calls
-- React Icons: For icons
-- useHooks: A collection of modern, server-safe React hooks – from the ui.dev team.
-- react-router-hash-link : Hash link support for React Router
-- axios : Promise based HTTP client for the browser and node.js
-- react-google-recaptcha : Google reCAPTCHA component for React
-- use-local-storage : A simple React hook to store data in localStorage
+- React Router DOM: For routing.
+- Axios: For API calls.
+- React Icons: For icons.
+- useHooks: A collection of modern, server-safe React hooks from the ui.dev team.
+- react-router-hash-link: Hash link support for React Router.
+- react-google-recaptcha: Google reCAPTCHA component for React.
+- use-local-storage: A simple React hook to store data in localStorage.
 
 ### Backend
 
-- Node.js & Express.js
-- MongoDB with Mongoose
-- JWT for authentication
-- Cookie-parser for cookie management
-- Bcrypt for password hashing
-- Multer for file upload
-- File-type for file type validation
-- Cloudinary for image storage
-- Winston & Morgan for logging
-- Express Validator for input validation
-- Helmet for security headers
-- CORS support
-- axios for API calls
-- express-rate-limit to limit repeated requests
+- Node.js & Express.js: Server-side runtime and web framework for building APIs.
+- MongoDB with Mongoose: Database with schema-based solution for Node.js.
+- JWT: For handling secure authentication via JSON Web Tokens.
+- Cookie-parser: For managing cookies in requests and responses.
+- Bcrypt: For password hashing.
+- Multer: For handling file uploads.
+- File-type: For file type validation.
+- Cloudinary: For cloud image storage and transformation.
+- Winston & Morgan: For logging requests and errors.
+- Express Validator: For input validation in Express apps.
+- Helmet: For setting secure HTTP headers.
+- CORS: Cross-Origin Resource Sharing support.
+- Axios: For making HTTP requests.
+- express-rate-limit: To limit repeated requests from the same IP.
 - Development tools:
-  - Dotenv for environment variables
-  - Nodemon for development server reloading
-  - Cross-env for cross-environment variable support
+  - Dotenv: For managing environment variables.
+  - Nodemon: For automatic server restart during development.
+  - Cross-env: For setting environment variables across different OS
 
 ## Getting Started
 
@@ -79,108 +78,92 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 
 - Node.js (v14 or higher)
 - MongoDB
-- Cloudinary account
-- Yarn
+- Cloudinary account (for image storage)
+- Yarn (for dependency management)
 
 ### Installation
 
-1. Clone the repository
+**1. Clone the repository**
 
 ```bash
 git clone https://github.com/armen-asriyan/eval-backend.git
 cd eval-backend
 ```
 
-2. Install backend dependencies
+**2. Install backend dependencies**
 
 ```bash
 cd backend
 yarn install
 ```
 
-3. Install frontend dependencies
+**3. Install frontend dependencies**
 
 ```bash
 cd ../frontend
 yarn install
 ```
 
-4. Configure environment variables
+**4. Create a .env file in the backend and frontend directories with the following configurations:**
 
-   4.1 Create backend `.env` file:
+Backend `.env` file:
 
-   ```bash
-   touch backend/.env
-   ```
+```ini
+PORT = 'YOUR_PORT'
+DB_NAME = 'YOUR_DB_NAME'
+MONGO_URI= 'YOUR_MONGODB_URI'
+JWT_SECRET = 'YOUR_JWT_SECRET'
 
-   4.2 with the following contents:
+CLOUDINARY_NAME = 'YOUR_CLOUDINARY_NAME'
+CLOUDINARY_API_KEY = 'YOUR_CLOUDINARY_API_KEY'
+CLOUDINARY_API_SECRET = 'YOUR_CLOUDINARY_API_SECRET'
 
-   ```ini
-   PORT = 'YOUR_PORT'
-   DB_NAME = 'YOUR_DB_NAME'
-   MONGO_URI= 'YOUR_MONGODB_URI'
-   JWT_SECRET = 'YOUR_JWT_SECRET'
+NODE_ENV = 'development'
 
-   CLOUDINARY_NAME = 'YOUR_CLOUDINARY_NAME'
-   CLOUDINARY_API_KEY = 'YOUR_CLOUDINARY_API_KEY'
-   CLOUDINARY_API_SECRET = 'YOUR_CLOUDINARY_API_SECRET'
+CLIENT_URL='YOUR_CLIENT_URL (for cors)'
 
-   NODE_ENV = 'development'
+RECAPTCHA_SECRET_KEY = 'YOUR_RECAPTCHA_SECRET_KEY'
+```
 
-   CLIENT_URL='YOUR_CLIENT_URL (for cors)'
+Frontend `.env` file:
 
-   RECAPTCHA_SECRET_KEY = 'YOUR_RECAPTCHA_SECRET_KEY'
-   ```
+```ini
+VITE_API_URL = 'YOUR_BACKEND_API_URL'
 
-   4.3 Create frontend `.env` file:
+VITE_RECAPTCHA_SITE_KEY = 'YOUR_RECAPTCHA_SITE_KEY'
+```
 
-   ```bash
-   touch frontend/.env
-   ```
-
-   with the following contents:
-
-   ```ini
-   VITE_API_URL = 'YOUR_BACKEND_API_URL'
-
-   VITE_RECAPTCHA_SITE_KEY = 'YOUR_RECAPTCHA_SITE_KEY'
-   ```
-
-5. Start the backend server
+**5. Start the backend server**
 
 ```bash
 cd backend
 yarn run dev
 ```
 
-6. Run the frontend app
+**6. Run the frontend app**
 
 ```bash
 cd ../frontend
 yarn run dev
 ```
 
-7. Open your browser and navigate to `http://localhost:5173` (default Vite port)
+**7. Open your browser and navigate to `http://localhost:5173` (default Vite port)**
 
-🚀 That's it! You should now have a fully functional portfolio website with admin dashboard.
+<p style="margin-top: 2rem; text-align: center">🚀 That's it! You should now have a fully functional portfolio website with admin dashboard.</p>
 
 <p align="center">📌 Don't forget to create the first user with the `/register` endpoint</p>
 
 ## Demo
 
-<p>
-    Desktop:
-    <br/>
-    <img src="./documentation/desktop-screenshot.png">
-</p>
+Desktop:
 
-<p>
-    Mobile:
-    <br/>
-    <img src="./documentation/mobile-screenshot.png" width="50%">
-</p>
+<img src="./documentation/desktop-screenshot.png" style="margin-bottom: 2rem;">
 
-👉 [Live Demo on Vercel](https://eval-backend.vercel.app/)
+Mobile:
+
+<img src="./documentation/mobile-screenshot.png" width="50%">
+
+ <p style="margin-top: 2rem; margin-bottom: 2rem; text-align: center; font-size: 2rem">👉 <a href="https://eval-backend.vercel.app">Live Demo on Vercel</p>
 
 ## Credits
 
