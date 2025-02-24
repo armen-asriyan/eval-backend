@@ -30,7 +30,7 @@ function App() {
         <Sidebar theme={theme} switchTheme={switchTheme} />
         <main className="main">
           <Routes>
-            <Route path="/" element={<HomePageContent />} />
+            <Route exact path="/" element={<HomePageContent />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="*" element={<NotFound />} />

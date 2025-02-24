@@ -22,7 +22,7 @@
 .home__name {
   font-size: var(--h1-font-size);
   font-weight: var(--font-bold);
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .home__socials {

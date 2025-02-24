@@ -4,8 +4,11 @@
   max-width: 100%;
 }
 
-.dashboard .text-right {
+.dashboard .dashboard__header {
   text-align: right;
+  width: fit-content;
+  margin-left: auto;
+  box-sizing: border-box;
 }
 
 .dashboard__title {

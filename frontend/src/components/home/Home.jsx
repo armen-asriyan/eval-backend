@@ -9,13 +9,14 @@ const Home = () => {
   return (
     <section className="home container" id="home">
       <div className="intro">
-        <img src={avatar1} alt="avatar" className="home__img" width="300" />
-        <h1 className="home__name" style={{ marginBottom: "1rem" }}>
-          John Doe
-        </h1>
-        <span className="home__education" style={{ marginBottom: "1rem" }}>
-          Je suis un Développeur Web
-        </span>
+        <img
+          src={avatar1}
+          alt="Avatar de John Doe"
+          className="home__img"
+          width="300"
+        />
+        <h1 className="home__name">John Doe</h1>
+        <span className="home__education">Je suis un Développeur Web</span>
       </div>
       <ScrollDown />
 

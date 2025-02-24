@@ -10,6 +10,7 @@ aside {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   z-index: var(--z-navbar); /* 100 */
   transition: 0.3s;
 }
@@ -31,6 +32,11 @@ aside {
 .nav__link:hover {
   color: hsl(43, 100%, 68%);
   transform: scale(1.1);
+}
+
+.nav__menu a {
+  margin: 0;
+  padding: 0;
 }
 
 .footer__button {

@@ -10,6 +10,12 @@
 
 .footer__text {
   margin-bottom: 1.5rem;
+  padding: 5px;
+}
+
+.footer__text-author {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .footer__link {
@@ -26,8 +32,8 @@
   margin-right: 0.5rem;
 }
 
-.footer__link .author {
-  font-size: 1rem !important;
+.footer__text-template-author {
+  margin: 0.5rem;
 }
 
 .footer__link:hover {

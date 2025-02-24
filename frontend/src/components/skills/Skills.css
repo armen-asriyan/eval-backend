@@ -144,6 +144,14 @@
   color: var(--body-color);
 }
 
+.skills__no-skill {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: var(--h2-font-size);
+  color: var(--text-color);
+}
+
 @media screen and (max-width: 1024px) {
   .skills__container {
     grid-template-columns: repeat(2, 330px);

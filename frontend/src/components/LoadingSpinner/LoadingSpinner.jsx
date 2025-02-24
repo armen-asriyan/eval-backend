@@ -3,14 +3,18 @@ import { RiLoader2Line } from "react-icons/ri";
 
 import "./LoadingSpinner.css";
 
-const LoadingSpinner = ({ loading }) => {
+const LoadingSpinner = ({ loading, fullscreen }) => {
   return (
     <div
-      className="loading-modal"
-      style={{ display: loading ? "flex" : "none" }}
+      className="loading-spinner"
+      style={{
+        display: loading ? "flex" : "none",
+        position: fullscreen ? "fixed" : "relative",
+        backgroundColor: fullscreen ? "rgb(0 0 0 / 50%)" : "transparent",
+      }}
     >
-      <div className="loading-modal__content">
-        <span className="loading-modal__spinner">
+      <div className="loading-spinner__content">
+        <span className="loading-spinner__spinner">
           <RiLoader2Line />
         </span>
         <p>Chargement...</p>

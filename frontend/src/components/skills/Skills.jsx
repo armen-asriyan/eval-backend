@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Skills.css";
-import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../../authContext";
 import {
   RiAddLine,
   RiFunctionLine,
@@ -11,53 +8,18 @@ import {
   RiToolsLine,
 } from "react-icons/ri";
 
-const apiUrl = process.env.REACT_APP_API_URL;
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
-const Skills = ({ onEditSkill }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const { isAdmin } = useAuth();
-
-  const [skillsData, setSkillsData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [skillCategories, setSkillCategories] = useState([]);
-  const [skillLevels, setSkillLevels] = useState([]);
-
-  const fetchSkills = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
-
-      const res = await axios.get(`${apiUrl}/api/skills`);
-
-      setSkillsData(res.data.skills);
-      setSkillCategories(res.data.categories);
-      setSkillLevels(res.data.levels);
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const isOnDashboard = location.pathname === "/dashboard";
-
-  const handleAddSkill = () => {
-    if (!isOnDashboard) {
-      navigate("/dashboard");
-    } else {
-      onEditSkill("", skillCategories, skillLevels);
-    }
-  };
-
-  useEffect(() => {
-    fetchSkills();
-  }, []);
-
+const Skills = ({
+  skillsData,
+  skillCategories,
+  skillLevels,
+  isLoading,
+  isAdmin,
+  onEditSkill,
+}) => {
   return (
-    <section className="skills container skill " id="skills">
+    <section className="skills container skill" id="skills">
       <a href="#skills">
         <h2 className="section__title">
           <span>
@@ -69,11 +31,9 @@ const Skills = ({ onEditSkill }) => {
 
       <div className="skills__container grid">
         {isLoading ? (
-          <h3 className="skills__title">Chargement...</h3>
-        ) : error ? (
-          <h3 className="skills__title error">{error}</h3>
+          <LoadingSpinner loading={isLoading} fullscreen={false} />
         ) : skillsData.length === 0 ? (
-          <h3 className="skills__title">Aucune compétence trouvée</h3>
+          <h3 className="skills__no-skill">Aucune compétence trouvée</h3>
         ) : (
           skillsData.map((skill) => (
             <div className="skills__card" key={skill._id}>
@@ -94,26 +54,24 @@ const Skills = ({ onEditSkill }) => {
                 </p>
               </div>
 
-              {isAdmin && isOnDashboard ? (
+              {isAdmin && (
                 <button
                   type="button"
                   className="skills__edit-button"
-                  onClick={() =>
-                    onEditSkill(skill, skillCategories, skillLevels)
-                  }
+                  onClick={() => onEditSkill(skill)}
                 >
                   <RiPencilLine /> Modifier
                 </button>
-              ) : null}
+              )}
             </div>
           ))
         )}
-        {isAdmin && isOnDashboard && (
+        {isAdmin && (
           <div className="skills__card">
             <h3 className="skills__title add-skill">
               Ajouter une nouvelle competence
               <br />
-              <RiAddLine onClick={handleAddSkill} />
+              <RiAddLine onClick={() => onEditSkill("")} />
             </h3>
           </div>
         )}

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./EditModal.css";
 import {
   RiAddBoxLine,
@@ -13,6 +15,8 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     title: skill?.title || "",
     category: skill?.category || Object.keys(skillCategories)[0],
@@ -67,7 +71,8 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
 
       setSuccess(response.data.message);
       closeModal();
-      window.location.reload();
+
+      navigate("/dashboard");
     } catch (error) {
       setError(error.response?.data?.message || "Erreur de connexion.");
     } finally {
@@ -87,8 +92,10 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
         withCredentials: true,
       });
       setSuccess(response.data.message);
-      window.location.reload();
+
       closeModal();
+
+      navigate("/dashboard");
     } catch (error) {
       setError(error.response?.data?.message || "Erreur de connexion.");
     } finally {
@@ -203,7 +210,7 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
         {success && <p className="success">{success}</p>}
 
         {/* Loading spinner */}
-        <LoadingSpinner loading={loading} />
+        <LoadingSpinner loading={loading} fullscreen={true} />
       </div>
     </div>
   );

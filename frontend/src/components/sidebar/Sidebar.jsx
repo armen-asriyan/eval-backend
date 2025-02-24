@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import "./Sidebar.css";
 import Logo from "../../assets/logo.svg";
 import LightLogo from "../../assets/light-logo.svg";
-import { Link } from "react-router";
+
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import { useAuth } from "../../authContext";
-import axios from "axios";
 
 import {
   RiHome2Line,
@@ -15,36 +16,18 @@ import {
   RiMenu2Line,
   RiDashboard2Line,
   RiLoginBoxLine,
-  RiLogoutBoxLine,
-  RiErrorWarningLine,
 } from "react-icons/ri";
-
-const apiUrl = process.env.REACT_APP_API_URL;
+import LogoutButton from "../LogoutButton/LogoutButton";
 
 const Sidebar = (props) => {
-  const { isAuth, setIsAuth } = useAuth();
-
   const [toggle, showMenu] = useState(false);
-  const [error, setError] = useState(false);
 
-  const handleLogout = async () => {
+  const goToDashboard = () => {
     showMenu(!toggle);
-    try {
-      await axios.post(
-        `${apiUrl}/api/auth/logout`,
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-
-      setIsAuth(false);
-
-      window.location.href = "/";
-    } catch (error) {
-      setError(error.response.data.message);
-    }
+    window.scrollTo(0, 0);
   };
+
+  const { isAuth } = useAuth();
 
   return (
     <>
@@ -63,41 +46,41 @@ const Sidebar = (props) => {
           <div className="nav__menu">
             <ul className="nav__list">
               <li className="nav__item">
-                <a
-                  href="/#home"
+                <HashLink
+                  to="/#home"
                   className="nav__link"
                   onClick={() => showMenu(!toggle)}
                   aria-label="Nav Acceuil"
                 >
                   <RiHome2Line />
-                </a>
+                </HashLink>
               </li>
 
               <li className="nav__item">
-                <a
-                  href="/#about"
+                <HashLink
+                  to="/#about"
                   className="nav__link"
                   onClick={() => showMenu(!toggle)}
                   aria-label="Nav A propos"
                 >
                   <RiShirtLine />
-                </a>
+                </HashLink>
               </li>
 
               <li className="nav__item">
-                <a
-                  href="/#skills"
+                <HashLink
+                  to="/#skills"
                   className="nav__link"
                   onClick={() => showMenu(!toggle)}
                   aria-label="Nav Skills"
                 >
                   <RiToolsLine />
-                </a>
+                </HashLink>
               </li>
 
               {!isAuth ? (
                 <li className="nav__item">
-                  <Link
+                  <HashLink
                     to="/login"
                     className="nav__link"
                     onClick={() => {
@@ -107,18 +90,10 @@ const Sidebar = (props) => {
                     aria-label="Nav Se connecter"
                   >
                     <RiLoginBoxLine />
-                  </Link>
+                  </HashLink>
                 </li>
               ) : (
-                <li className="nav__item">
-                  <button
-                    className="nav__link logout-button"
-                    onClick={() => handleLogout()}
-                    aria-label="Nav Se deconnecter"
-                  >
-                    {error ? <RiErrorWarningLine /> : <RiLogoutBoxLine />}
-                  </button>
-                </li>
+                <LogoutButton toggle={toggle} showMenu={showMenu} />
               )}
             </ul>
           </div>
@@ -130,7 +105,7 @@ const Sidebar = (props) => {
               <button
                 className="nav__link footer__button"
                 aria-label="Nav Dashboard"
-                onClick={() => showMenu(!toggle)}
+                onClick={goToDashboard}
               >
                 <RiDashboard2Line />
               </button>
