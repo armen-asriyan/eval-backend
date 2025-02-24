@@ -3,6 +3,7 @@
   <img src="https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white">
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">
   <img src="https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white">
+  <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E">
   <img src="https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white">
   <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
 </p>
@@ -136,10 +137,10 @@ yarn install
    ```ini
    PORT = 'YOUR_PORT'
 
-   REACT_APP_API_URL = 'YOUR_BACKEND_API_URL'
+   VITE_API_URL = 'YOUR_BACKEND_API_URL'
 
-   REACT_APP_SITE_KEY = 'YOUR_RECAPTCHA_SITE_KEY'
-   REACT_APP_SECRET_KEY = 'YOUR_RECAPTCHA_SECRET_KEY'
+   VITE_SITE_KEY = 'YOUR_RECAPTCHA_SITE_KEY'
+   VITE_SECRET_KEY = 'YOUR_RECAPTCHA_SECRET_KEY'
    ```
 
 5. Start the backend server
@@ -153,7 +154,7 @@ yarn run dev
 
 ```bash
 cd ../frontend
-yarn start
+yarn run dev
 ```
 
 7. Open your browser and navigate to `http://localhost:YOUR_PORT`

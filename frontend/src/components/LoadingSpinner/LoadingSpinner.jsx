@@ -1,16 +1,19 @@
-import React from "react";
 import { RiLoader2Line } from "react-icons/ri";
 
 import "./LoadingSpinner.css";
 
-const LoadingSpinner = ({ loading, fullscreen }) => {
+const LoadingSpinner = ({ loading, isOverlay, fillParentVH }) => {
   return (
     <div
       className="loading-spinner"
       style={{
         display: loading ? "flex" : "none",
-        position: fullscreen ? "fixed" : "relative",
-        backgroundColor: fullscreen ? "rgb(0 0 0 / 50%)" : "transparent",
+        position: isOverlay ? "fixed" : "relative",
+        backgroundColor: isOverlay ? "rgb(0 0 0 / 50%)" : "transparent",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: fillParentVH ? "100vh" : "100%", // Full height of the screen, but stay inside the parent container
       }}
     >
       <div className="loading-spinner__content">

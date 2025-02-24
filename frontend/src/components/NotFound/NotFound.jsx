@@ -1,4 +1,3 @@
-import React from "react";
 import "../home/Home.css";
 import Shapes from "../home/Shapes";
 

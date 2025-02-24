@@ -35,8 +35,10 @@
       partnersList: true,
     });
 
-    window.tarteaucitron.user.recaptchaapi =
-      process.env.REACT_APP_RECAPTCHA_SITE_KEY;
+    const recaptchaApiKey = import.meta.env.VITE_SITE_KEY;
+
+    window.tarteaucitron.user.recaptchaapi = recaptchaApiKey;
+
     (window.tarteaucitron.job = window.tarteaucitron.job || []).push(
       "recaptcha"
     );

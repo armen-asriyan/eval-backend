@@ -1,5 +1,3 @@
-import React from "react";
-
 import "./Footer.css";
 
 import { RiGithubFill } from "react-icons/ri";

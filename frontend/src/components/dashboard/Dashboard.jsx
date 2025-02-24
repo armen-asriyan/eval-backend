@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Dashboard.css";
 import avatar1 from "../../assets/avatar1.png";
 import { Navigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { useAuth } from "../../authContext";
 import Shapes from "../home/Shapes";
 import Skills from "../skills/Skills";
 import EditModal from "../modal/EditModal";
-import useDocumentTitle from "../../useDocumentTitle";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import useSkills from "../../hooks/useSkills";
 
@@ -34,7 +34,13 @@ const Dashboard = () => {
   };
 
   if (authLoading) {
-    return <LoadingSpinner loading={authLoading} fullscreen={true} />;
+    return (
+      <LoadingSpinner
+        loading={authLoading}
+        isOverlay={false}
+        fillParentVH={true}
+      />
+    );
   }
 
   if (!isAuth) {

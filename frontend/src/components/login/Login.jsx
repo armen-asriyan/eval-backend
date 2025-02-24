@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../authContext";
-import useDocumentTitle from "../../useDocumentTitle";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 import Shapes from "../home/Shapes";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
@@ -13,9 +13,9 @@ import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 import { useMediaQuery } from "@uidotdev/usehooks";
 
-const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl = import.meta.env.VITE_API_URL;
 
-const recaptchaSiteKey = process.env.REACT_APP_SITE_KEY;
+const recaptchaSiteKey = import.meta.env.VITE_SITE_KEY;
 
 const Login = () => {
   const isXSmallDevice = useMediaQuery("only screen and (max-width : 576px)");
@@ -121,7 +121,7 @@ const Login = () => {
         </form>
       </div>
       <Shapes />
-      {loading && <LoadingSpinner loading={loading} fullscreen={true} />}
+      {loading && <LoadingSpinner loading={loading} isOverlay={true} />}
     </section>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./EditModal.css";
@@ -12,7 +12,7 @@ import {
 import axios from "axios";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
-const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
   const navigate = useNavigate();
@@ -210,7 +210,7 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
         {success && <p className="success">{success}</p>}
 
         {/* Loading spinner */}
-        <LoadingSpinner loading={loading} fullscreen={true} />
+        <LoadingSpinner loading={loading} isOverlay={true} />
       </div>
     </div>
   );

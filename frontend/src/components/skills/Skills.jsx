@@ -1,4 +1,3 @@
-import React from "react";
 import "./Skills.css";
 import {
   RiAddLine,
@@ -31,7 +30,7 @@ const Skills = ({
 
       <div className="skills__container grid">
         {isLoading ? (
-          <LoadingSpinner loading={isLoading} fullscreen={false} />
+          <LoadingSpinner loading={isLoading} isOverlay={false} />
         ) : skillsData.length === 0 ? (
           <h3 className="skills__no-skill">Aucune compétence trouvée</h3>
         ) : (
