@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Dashboard.css";
 import avatar1 from "../../assets/avatar1.png";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../authContext";
 import Shapes from "../home/Shapes";
 import Skills from "../skills/Skills";
@@ -11,6 +11,8 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import useSkills from "../../hooks/useSkills";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
   useDocumentTitle("Dashboard");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +46,8 @@ const Dashboard = () => {
   }
 
   if (!isAuth) {
-    return <Navigate to="/login" replace />;
+    navigate("/login", { replace: true });
+    return null;
   }
 
   return (
