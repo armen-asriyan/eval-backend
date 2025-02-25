@@ -21,11 +21,17 @@ const Login = () => {
   const [isRecaptchaAllowed, setIsRecaptchaAllowed] = useState(null);
 
   useEffect(() => {
+    let retries = 0;
+    const maxRetries = 10; // Stop after 10 seconds (10 * 500ms)
+
     const checkConsent = () => {
       if (window.tarteaucitron?.state?.recaptcha !== undefined) {
         setIsRecaptchaAllowed(window.tarteaucitron?.state?.recaptcha);
+      } else if (retries < maxRetries) {
+        retries += 1; // Retry until maxRetries
+        setTimeout(checkConsent, 500);
       } else {
-        setTimeout(checkConsent, 500); // Retry every 500ms until it’s ready
+        setIsRecaptchaAllowed(false);
       }
     };
 
@@ -44,9 +50,11 @@ const Login = () => {
   const navigate = useNavigate(); // React Router hook for navigation
   const recaptchaRef = useRef();
 
-  if (isAuth) {
-    navigate("/dashboard");
-  }
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/dashboard");
+    }
+  }, [isAuth, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -75,7 +83,29 @@ const Login = () => {
         navigate("/dashboard");
       }
     } catch (err) {
-      setMessage(err.response?.data?.message || "Erreur de connexion");
+      // Get the Retry-After header containing the number of seconds to wait
+      const retryAfterSeconds = err?.response?.headers?.["retry-after"];
+
+      // Map HTTP status codes to error messages
+      const errorMessages = {
+        429: `Trop de tentatives, veuillez réessayer dans ${retryAfterSeconds}.`,
+        401: "Email ou mot de passe incorrect.",
+        403: "Votre compte est désactivé ou suspendu.",
+      };
+
+      // Get the status code from the error response
+      const statusCode = err?.response?.status || 0;
+
+      // Check for the
+      setMessage(
+        errorMessages[statusCode] ||
+          "Une erreur est survenue. Veuillez réessayer plus tard."
+      );
+
+      // Reset the reCAPTCHA
+      recaptchaRef.current?.reset();
+
+      setIsError(true);
     } finally {
       setLoading(false);
     }

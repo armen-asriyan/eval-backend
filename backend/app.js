@@ -27,6 +27,9 @@ app.use(
       "https://res.cloudinary.com", // For Cloudinary
     ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    exposedHeaders: ["Retry-After", "RateLimit-Reset", "Set-Cookie", "ETag"],
+    maxAge: 86400, // 24 hours
   })
 );
 

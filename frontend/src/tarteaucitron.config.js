@@ -1,4 +1,4 @@
-(function waitForTarteaucitron() {
+(function waitForTarteaucitron(retries = 0, maxRetries = 10) {
   if (typeof window.tarteaucitron !== "undefined") {
     const lang = navigator.language;
 
@@ -75,8 +75,18 @@
     return () => {
       observer.disconnect();
     };
+  } else if (retries < maxRetries) {
+    if (process.env.NODE_ENV === "development") {
+      console.log(
+        "Waiting for tarteaucitron...",
+        retries + 1,
+        "of",
+        maxRetries
+      );
+    }
+
+    setTimeout(() => waitForTarteaucitron(retries + 1, maxRetries), 500); // Retry every 500ms
   } else {
-    console.log("Waiting for tarteaucitron...");
-    setTimeout(waitForTarteaucitron, 500); // Retry every 500ms
+    console.error("tarteaucitron failed to load after", maxRetries, "attempts");
   }
 })();

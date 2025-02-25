@@ -15,8 +15,11 @@ const startServer = async () => {
 
     // Start the server
     app.listen(PORT, () => {
-      // Log a message in the console only in development
-      if (process.env.NODE_ENV === "development") {
+      // Log a message in the console if not in production
+      if (process.env.NODE_ENV !== "production") {
+        console.log(
+          `Server running in ${process.env.NODE_ENV.toUpperCase()} mode`
+        );
         console.log(`Server running on port ${PORT}`);
       }
     });

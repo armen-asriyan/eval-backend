@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Dashboard.css";
 import avatar1 from "../../assets/avatar1.png";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +20,12 @@ const Dashboard = () => {
 
   const { isAuth, user, authLoading } = useAuth();
 
+  useEffect(() => {
+    if (!authLoading && !isAuth) {
+      navigate("/login", { replace: true });
+    }
+  }, [authLoading, isAuth, navigate]);
+
   const { skillsData, skillCategories, skillLevels, isLoading, refetchSkills } =
     useSkills();
 
@@ -35,6 +41,7 @@ const Dashboard = () => {
     refetchSkills(); // Re-fetch skills data after closing the modal
   };
 
+  // Show spinner while auth loading
   if (authLoading) {
     return (
       <LoadingSpinner
@@ -45,8 +52,8 @@ const Dashboard = () => {
     );
   }
 
-  if (!isAuth) {
-    navigate("/login", { replace: true });
+  // Render null if user is not authenticated
+  if (!isAuth || !user) {
     return null;
   }
 
@@ -63,7 +70,7 @@ const Dashboard = () => {
               width="100"
             />
             <div className="welcome-text">
-              Bienvenue, <span>{user.name}</span>
+              Bienvenue, <span>{user?.name}</span>
             </div>
           </div>
         </div>

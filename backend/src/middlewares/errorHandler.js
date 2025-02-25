@@ -1,7 +1,9 @@
 // Global error handler middleware
 const errorHandler = (err, req, res, next) => {
+  const isDev = process.env.NODE_ENV === "development";
+
   // Log error stack
-  if (process.env.NODE_ENV === "development") {
+  if (isDev) {
     console.error(` errorHandler: ${err.stack}`);
   } else {
     console.error(` errorHandler: ${err.message}`);
@@ -19,9 +21,9 @@ const errorHandler = (err, req, res, next) => {
   // Send error response
   res.status(statusCode).json({
     success: false,
-    message,
+    message: "ErrorHandler: " + message,
     code: errorCode,
-    stack: err.stack,
+    stack: isDev ? err.stack : null,
   });
 };
 

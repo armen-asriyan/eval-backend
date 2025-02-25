@@ -118,7 +118,7 @@ CLOUDINARY_NAME = 'YOUR_CLOUDINARY_NAME'
 CLOUDINARY_API_KEY = 'YOUR_CLOUDINARY_API_KEY'
 CLOUDINARY_API_SECRET = 'YOUR_CLOUDINARY_API_SECRET'
 
-NODE_ENV = 'development'
+# NODE_ENV = 'development' the environment is set by the corresponding script in package.json
 
 CLIENT_URL='YOUR_CLIENT_URL (for cors)'
 
