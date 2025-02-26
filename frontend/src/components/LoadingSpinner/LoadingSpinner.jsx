@@ -10,11 +10,11 @@ const LoadingSpinner = ({ loading, isOverlay, fillParentVH }) => {
         display: loading ? "flex" : "none",
         position: isOverlay ? "fixed" : "relative",
         backgroundColor: isOverlay ? "rgb(0 0 0 / 50%)" : "transparent",
-        marginBottom: isOverlay ? 0 : "1rem",
+        paddingBottom: isOverlay ? 0 : "1rem",
         top: 0,
         left: 0,
         width: "100%",
-        height: fillParentVH ? "100vh" : "100%", // Full height of the screen, but stay inside the parent container
+        minHeight: fillParentVH ? "100vh" : "100%", // Full height of the screen, but stay inside the parent container
       }}
     >
       <div className="loading-spinner__content">
