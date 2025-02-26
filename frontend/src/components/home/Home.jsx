@@ -2,7 +2,7 @@ import "./Home.css";
 import ScrollDown from "./ScrollDown";
 import Shapes from "./Shapes";
 
-import avatar1 from "../../assets/avatar1.png";
+import avatar1 from "../../assets/avatar1.webp";
 
 const Home = () => {
   return (
