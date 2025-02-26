@@ -42,46 +42,46 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 
 ### Frontend
 
-- React with Vite: For fast builds and instant HMR.
-- React Router DOM: For routing.
-- Axios: For API calls.
-- React Icons: For icons.
-- useHooks: A collection of modern, server-safe React hooks from the ui.dev team.
-- react-router-hash-link: Hash link support for React Router.
-- react-google-recaptcha: Google reCAPTCHA component for React.
-- use-local-storage: A simple React hook to store data in localStorage.
+- **React with Vite**: For fast builds and instant HMR.
+- **React Router DOM**: For routing.
+- **Axios**: For API calls.
+- **React Icons**: For icons.
+- **useHooks**: A collection of modern, server-safe React hooks from the ui.dev team.
+- **react-router-hash-link**: Hash link support for React Router.
+- **react-google-recaptcha**: Google reCAPTCHA component for React.
+- **use-local-storage**: A simple React hook to store data in localStorage.
 
 ### Backend
 
-- Node.js & Express.js: Server-side runtime and web framework for building APIs.
-- MongoDB with Mongoose: Database with schema-based solution for Node.js.
-- JWT: For handling secure authentication via JSON Web Tokens.
-- Cookie-parser: For managing cookies in requests and responses.
-- Bcrypt: For password hashing.
-- Multer: For handling file uploads.
-- File-type: For file type validation.
-- Redis: For caching.
-- Cloudinary: For cloud image storage and transformation.
-- Winston & Morgan: For logging requests and errors.
-- Express Validator: For input validation in Express apps.
-- Compression: For compressing responses.
-- Helmet: For setting secure HTTP headers.
-- CORS: Cross-Origin Resource Sharing support.
-- Axios: For making HTTP requests.
-- express-rate-limit: To limit repeated requests from the same IP.
-- Development tools:
-  - Dotenv: For managing environment variables.
-  - Nodemon: For automatic server restart during development.
-  - Cross-env: For setting environment variables across different OS
+- **Node.js & Express.js**: Server-side runtime and web framework for building APIs.
+- **MongoDB with Mongoose**: Database with schema-based solution for Node.js.
+- **JWT**: For handling secure authentication via JSON Web Tokens.
+- **Cookie-parser**: For managing cookies in requests and responses.
+- **Bcrypt**: For password hashing.
+- **Multer**: For handling file uploads.
+- **File-type**: For file type validation.
+- **Redis**: For caching.
+- **Cloudinary**: For cloud image storage and transformation.
+- **Winston & Morgan**: For logging requests and errors.
+- **Express Validator**: For input validation in Express apps.
+- **Compression**: For compressing responses.
+- **Helmet**: For setting secure HTTP headers.
+- **CORS**: Cross-Origin Resource Sharing support.
+- **Axios**: For making HTTP requests.
+- **express-rate-limit**: To limit repeated requests from the same IP.
+- **Development tools**:
+  - **Dotenv**: For managing environment variables.
+  - **Nodemon**: For automatic server restart during development.
+  - **Cross-env**: For setting environment variables across different OS
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
-- MongoDB
-- Cloudinary account (for image storage)
-- Yarn (for dependency management)
+- **Node.js (v14 or higher)**
+- **MongoDB**
+- **Cloudinary account (for image storage)**
+- **Yarn (for dependency management)**
 
 ### Installation
 
