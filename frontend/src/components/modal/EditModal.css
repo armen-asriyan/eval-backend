@@ -56,6 +56,7 @@
   border-radius: 5px;
   width: 80vw;
   max-width: 400px;
+  cursor: pointer;
 }
 
 .edit-modal-content .edit-modal__close-modal-btn {
@@ -92,15 +93,18 @@
 
 .edit-modal-content .edit-modal__btn:hover {
   background-color: hsl(43, 100%, 68%);
+  box-shadow: 0 0 10px hsl(43, 100%, 68% / 0.5);
 }
 
 .edit-modal-content .edit-modal__btn.delete {
-  background-color: hsl(0, 100%, 50%);
+  background-color: hsl(0, 100%, 27%);
   color: #fff;
+  opacity: 1;
 }
 
 .edit-modal-content .edit-modal__btn.delete:hover {
-  background-color: hsl(0, 56%, 52%);
+  opacity: 0.9;
+  box-shadow: 0 0 10px hsl(0, 100%, 27% / 0.5);
 }
 
 @keyframes spin {
