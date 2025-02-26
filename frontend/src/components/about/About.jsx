@@ -2,7 +2,7 @@ import "./About.css";
 
 import { RiShirtLine } from "react-icons/ri";
 
-import avatar2 from "../../assets/avatar2.png";
+import avatar2 from "../../assets/avatar2.webp";
 
 const About = () => {
   return (

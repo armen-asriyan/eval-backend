@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Dashboard.css";
-import avatar1 from "../../assets/avatar1.png";
+import avatar1 from "../../assets/avatar1.webp";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../authContext";
 import Shapes from "../home/Shapes";

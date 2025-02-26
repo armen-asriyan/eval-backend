@@ -1,7 +1,7 @@
 import "../home/Home.css";
 import Shapes from "../home/Shapes";
 
-import NotFoundImage from "../../assets/NotFoundImage.png";
+import NotFoundImage from "../../assets/NotFoundImage.webp";
 
 const NotFound = () => {
   return (
