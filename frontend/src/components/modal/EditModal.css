@@ -10,17 +10,22 @@
 
 .edit-modal-content {
   width: fit-content;
-  height: 90%;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--container-color);
   box-shadow: var(--shadow);
-  padding: 1.875rem;
+  padding: 2rem 1.5rem;
+
   border-radius: var(--border-radius);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   z-index: var(--z-modal-content); /* 300 */
+}
+
+.edit-modal-content .edit-modal__title {
+  font-size: var(--h2-font-size);
+  margin-bottom: 20px;
 }
 
 .edit-modal-content .skill-form {
@@ -105,6 +110,41 @@
 .edit-modal-content .edit-modal__btn.delete:hover {
   opacity: 0.9;
   box-shadow: 0 0 10px hsl(0, 100%, 27% / 0.5);
+}
+
+.edit-modal__confirm-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.edit-modal__confirm-delete .cancel-delete {
+  background-color: rgba(210, 210, 210);
+}
+
+.edit-modal-content .confirmation {
+  width: 100%;
+}
+
+.edit-modal__confirm-delete-text {
+  width: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 3rem;
+  font-size: 0.9rem;
+}
+
+.edit-modal__confirm-delete-text svg {
+  width: 100px;
+  height: 100px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: #fb3434;
 }
 
 @keyframes spin {
