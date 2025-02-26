@@ -100,15 +100,15 @@ const Sidebar = (props) => {
 
         <div className="nav__footer">
           {isAuth ? (
-            <Link to="/dashboard">
-              <button
-                className="nav__link footer__button"
-                aria-label="Nav Dashboard"
-                onClick={goToDashboard}
-              >
-                <RiDashboard2Line />
-              </button>
-            </Link>
+            <button
+              as={Link}
+              to="/dashboard"
+              className="nav__link footer__button"
+              aria-label="Nav Dashboard"
+              onClick={goToDashboard}
+            >
+              <RiDashboard2Line />
+            </button>
           ) : null}
 
           <button
