@@ -24,8 +24,16 @@ export const uploadImage = async (file, category) => {
   // Upload image
   return new Promise((resolve, reject) => {
     cloudinary.uploader
-      .upload_stream({ folder: `skills/${category}` }, (error, result) =>
-        error ? reject(error) : resolve(result)
+      .upload_stream(
+        {
+          folder: `skills/${category}`,
+          transformation: [
+            { quality: "auto" },
+            { fetch_format: "auto" },
+            { width: 1200, height: 1200, crop: "limit" },
+          ],
+        },
+        (error, result) => (error ? reject(error) : resolve(result))
       )
       .end(file.buffer);
   });

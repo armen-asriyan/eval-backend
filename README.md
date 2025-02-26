@@ -60,9 +60,11 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 - Bcrypt: For password hashing.
 - Multer: For handling file uploads.
 - File-type: For file type validation.
+- Redis: For caching.
 - Cloudinary: For cloud image storage and transformation.
 - Winston & Morgan: For logging requests and errors.
 - Express Validator: For input validation in Express apps.
+- Compression: For compressing responses.
 - Helmet: For setting secure HTTP headers.
 - CORS: Cross-Origin Resource Sharing support.
 - Axios: For making HTTP requests.

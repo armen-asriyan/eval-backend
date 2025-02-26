@@ -3,6 +3,7 @@ import express from "express";
 
 // Dotenv is loaded within "dev" script
 
+import compression from "compression";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import helmet from "helmet";
@@ -12,16 +13,18 @@ import morganMiddleware from "./src/middlewares/morganMiddleware.js";
 // Create an Express application
 const app = express();
 
-// Middleware to parse JSON
-app.use(express.json());
+// Middleware to compress responses
+app.use(compression());
 
-app.use(express.urlencoded({ extended: true }));
+// Use helmet to secure headers
+app.use(helmet());
 
 // CORS Configuration
 app.use(
   cors({
     origin: [
       process.env.CLIENT_URL || "http://localhost:5173", // Default to Vite port
+      ,
       "https://www.google.com", // For reCAPTCHA
       "https://www.gstatic.com", // For reCAPTCHA
       "https://res.cloudinary.com", // For Cloudinary
@@ -33,8 +36,10 @@ app.use(
   })
 );
 
-// Use helmet to secure headers
-app.use(helmet());
+// Middleware to parse JSON
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
 
 // Use cookie parser to read cookies
 app.use(cookieParser());

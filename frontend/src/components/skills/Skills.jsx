@@ -17,6 +17,12 @@ const Skills = ({
   isAdmin,
   onEditSkill,
 }) => {
+  // Optimize image URL
+  const getOptimizedImageUrl = (url, width = 500) => {
+    if (!url) return ""; // Fallback if no URL exists
+    return url.replace("/upload/", `/upload/q_auto,f_auto,w_${width}/`);
+  };
+
   return (
     <section className="skills container skill" id="skills">
       <a href="#skills">
@@ -37,9 +43,10 @@ const Skills = ({
           skillsData.map((skill) => (
             <div className="skills__card" key={skill._id}>
               <img
-                src={skill.image_URL.secure_url}
+                src={getOptimizedImageUrl(skill.image_URL.secure_url, 500)} // Optimized URL with 500px width
                 alt={skill.title}
                 className="skills__img"
+                loading="lazy"
               />
               <h3 className="skills__title">{skill.title}</h3>
               <div className="skills__info">
