@@ -1,7 +1,7 @@
 import "./App.css";
 
 import Sidebar from "./components/sidebar/Sidebar";
-import useLocalStorage from "use-local-storage";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 

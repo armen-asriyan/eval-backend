@@ -49,7 +49,6 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 - **useHooks**: A collection of modern, server-safe React hooks from the ui.dev team.
 - **react-router-hash-link**: Hash link support for React Router.
 - **react-google-recaptcha**: Google reCAPTCHA component for React.
-- **use-local-storage**: A simple React hook to store data in localStorage.
 
 ### Backend
 

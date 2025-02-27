@@ -113,7 +113,6 @@ const Sidebar = (props) => {
           <button
             onClick={() => {
               props.switchTheme();
-              showMenu(!toggle);
             }}
             className="nav__link footer__button"
             aria-label="Mode sombre / clair"
