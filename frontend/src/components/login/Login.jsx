@@ -75,7 +75,7 @@ const Login = () => {
         { withCredentials: true }
       );
 
-      if (res.data.token) {
+      if (res.data.accessToken) {
         // Use the loginUser function from context to update auth state
         loginUser(res.data.user);
 
@@ -104,8 +104,6 @@ const Login = () => {
 
       // Reset the reCAPTCHA
       recaptchaRef.current?.reset();
-
-      setIsError(true);
     } finally {
       setLoading(false);
     }

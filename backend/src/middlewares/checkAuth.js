@@ -3,11 +3,11 @@ import { verifyTokenAndGetUser } from "../utils/authUtils.js";
 // Non strict middleware to check auth
 const checkAuth = async (req, res, next) => {
   try {
-    // Get token stored in cookies
-    const token = req.cookies.token;
+    // Get access token stored in cookies
+    const { accessToken } = req.cookies;
 
     // Set req.user
-    req.user = await verifyTokenAndGetUser(token);
+    req.user = await verifyTokenAndGetUser(accessToken);
 
     // Pass to next middleware
     next();

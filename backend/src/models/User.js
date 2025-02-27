@@ -37,6 +37,8 @@ const userSchema = new mongoose.Schema(
     },
     // Relation many-to-many with Skill
     skills: [{ type: mongoose.Schema.Types.ObjectId, ref: "Skill" }],
+    // Refresh token
+    refreshToken: { type: String, default: "", unique: true, select: false },
   },
   { timestamps: true } // Add timestamps
 );

@@ -4,6 +4,8 @@ import User from "../models/User.js";
 // Import the function to hash and compare passwords
 import { comparePassword, hashPassword } from "../services/hashPassword.js";
 
+import { v4 as uuidv4 } from "uuid"; // Random UUID generator for refresh token
+
 // Import the function to generate a JWT token
 import generateToken from "../utils/tokenUtil.js";
 
@@ -67,10 +69,7 @@ export const loginUser = async (req, res, next) => {
 
     // Vérifier si les champs sont présents
     if (!email || !password) {
-      return next({
-        statusCode: 400,
-        message: "All fields are required",
-      });
+      return next({ statusCode: 400, message: "All fields are required" });
     }
 
     // Search for the user by email
@@ -78,60 +77,143 @@ export const loginUser = async (req, res, next) => {
       .select("+password")
       .populate("skills");
 
-    // Check if the user exists
-    if (!user) {
-      return next({
-        statusCode: 401,
-        message: "Invalid email or password",
-      });
+    //#region <Check if the user exists -- old syntax>
+
+    // if (!user) {
+    //   return next({
+    //     statusCode: 401,
+    //     message: "Invalid email or password",
+    //   });
+    // }
+
+    // // Compare the password
+    // const isMatch = await comparePassword(password, user.password);
+
+    // if (!isMatch) {
+    //   return next({
+    //     statusCode: 401,
+    //     message: "Invalid email or password",
+    //   });
+    // }
+    //#endregion
+
+    // Check if the user exists -- new shorter syntax
+    if (!user || !(await comparePassword(password, user.password))) {
+      return next({ statusCode: 401, message: "Invalid email or password" });
     }
 
-    // Compare the password
-    const isMatch = await comparePassword(password, user.password);
+    // Generate an access jwt
+    const accessToken = generateToken(user._id);
 
-    if (!isMatch) {
-      return next({
-        statusCode: 401,
-        message: "Invalid email or password",
-      });
-    }
+    // Generate a UUID for refresh
+    const refreshToken = uuidv4();
 
-    // Generate a JWT token
-    const token = generateToken(user._id);
+    user.refreshToken = refreshToken;
 
-    // Send the JWT token in a cookie
-    res.cookie("token", token, {
+    // Save the user
+    await user.save();
+
+    // Acess token (short-lived, will contain user data)
+    res.cookie("accessToken", accessToken, {
       httpOnly: true, // Secure the cookie
       secure: process.env.NODE_ENV === "production", // Use https only in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cors policy only in production
-      maxAge: 24 * 60 * 60 * 1000, // Cookie lifetime (1 day)
+      maxAge: 15 * 60 * 1000, // Cookie lifetime (15 minutes)
+    });
+
+    // Refresh token (long-lived, will not contain user data)
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true, // Secure the cookie
+      secure: process.env.NODE_ENV === "production", // Use https only in production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cors policy only in production
+      maxAge: 7 * 24 * 60 * 60 * 1000, // Cookie lifetime (7 days)
     });
 
     // Send a confirmation message
-    res.status(200).json({ message: "User authenticated", user, token });
+    res.status(200).json({ message: "User authenticated", user, accessToken });
   } catch (error) {
     next(error);
   }
 };
 
-// Function to log out the user
-export const logoutUser = async (req, res, next) => {
+// Function to refresh the access token
+export const refreshToken = async (req, res, next) => {
   try {
-    // Check if the user is logged in
-    if (!req.cookies.token) {
-      return res.status(400).json({ message: "User is not logged in" });
+    // Get the refresh token from the cookies
+    const { refreshToken } = req.cookies;
+
+    // Check if the refresh token is present
+    if (!refreshToken) {
+      return next({ statusCode: 400, message: "Refresh token not found" });
     }
 
-    // Clear the login cookie
-    res.clearCookie("token", {
+    // Find user having the refresh token in the database
+    const user = await User.findOne({ refreshToken });
+
+    // Check if the user exists
+    if (!user) {
+      return next({ statusCode: 400, message: "User not found" });
+    }
+
+    // Generate a new access token
+    const newAccessToken = generateToken(user._id); // Generate a new access token
+    const newRefreshToken = uuidv4(); // Generate a new refresh token
+
+    // Update the user's refresh token
+    user.refreshToken = newRefreshToken;
+    await user.save();
+
+    // Send the new cookies
+
+    // Acess token (short-lived, will contain user data)
+    res.cookie("accessToken", newAccessToken, {
       httpOnly: true, // Secure the cookie
       secure: process.env.NODE_ENV === "production", // Use https only in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cors policy only in production
-      path: "/", // Cookie path
+      maxAge: 15 * 60 * 1000, // Cookie lifetime (15 minutes)
     });
 
-    // Send a confirmation message
-    res.status(200).json({ message: "Logout successful" });
+    // Refresh token (long-lived, will not contain user data)
+    res.cookie("refreshToken", newRefreshToken, {
+      httpOnly: true, // Secure the cookie
+      secure: process.env.NODE_ENV === "production", // Use https only in production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cors policy only in production
+      maxAge: 7 * 24 * 60 * 60 * 1000, // Cookie lifetime (7 days)
+    });
+
+    // Send the new access token
+    res
+      .status(200)
+      .json({ message: "Token refreshed", accessToken: newAccessToken });
+  } catch (error) {}
+};
+
+// Function to log out the user
+export const logoutUser = async (req, res, next) => {
+  try {
+    const { accessToken } = req.cookies;
+
+    // Only logout if the access token is present
+    if (accessToken) {
+      // Clear the access token cookie
+      res.clearCookie("accessToken", {
+        httpOnly: true, // Secure the cookie
+        secure: process.env.NODE_ENV === "production", // Use https only in production
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cors policy only in production
+        path: "/", // Cookie path
+      });
+
+      // Clear the refresh token cookie
+      res.clearCookie("refreshToken", {
+        httpOnly: true, // Secure the cookie
+        secure: process.env.NODE_ENV === "production", // Use https only in production
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cors policy only in production
+        path: "/", // Cookie path
+      });
+
+      // Send a confirmation message
+      res.status(200).json({ message: "Logout successful" });
+    }
   } catch (error) {
     next(error);
   }

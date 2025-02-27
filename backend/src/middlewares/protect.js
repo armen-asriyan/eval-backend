@@ -2,11 +2,11 @@ import { verifyTokenAndGetUser } from "../utils/authUtils.js";
 
 const protect = async (req, res, next) => {
   try {
-    // Get token stored in cookies
-    const token = req.cookies.token;
+    // Get access token stored in cookies
+    const { accessToken } = req.cookies;
 
-    // Find user
-    const user = await verifyTokenAndGetUser(token);
+    // Call util that verifies token and gets user
+    const user = await verifyTokenAndGetUser(accessToken);
 
     // If user not found, return error 401 (making this a protected route and a strict middleware)
     if (!user) {
