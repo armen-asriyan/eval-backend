@@ -9,6 +9,8 @@ import { v4 as uuidv4 } from "uuid"; // Random UUID generator for refresh token
 // Import the function to generate a JWT token
 import generateToken from "../utils/tokenUtil.js";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 // Function to create a new user this function is accessible only by admin (for now)
 export const registerUser = async (req, res, next) => {
   try {
@@ -83,7 +85,7 @@ export const loginUser = async (req, res, next) => {
     }
 
     // Generate an access jwt
-    const accessToken = generateToken(user._id, "10s"); // 10 seconds for testing
+    const accessToken = generateToken(user._id, isProduction ? "15m" : "10s"); // 10 seconds for testing
 
     // Generate a UUID for refresh
     const refreshToken = uuidv4();
@@ -96,9 +98,9 @@ export const loginUser = async (req, res, next) => {
     // Acess token (short-lived, will contain user data)
     res.cookie("accessToken", accessToken, {
       httpOnly: true, // Secure the cookie
-      secure: process.env.NODE_ENV === "production", // Use https only in production
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cors policy only in production
-      maxAge: 10 * 1000, // Cookie lifetime (10 seconds) for testing
+      secure: isProduction, // Use https only in production
+      sameSite: isProduction ? "none" : "lax", // Cors policy only in production
+      maxAge: isProduction ? 15 * 60 * 1000 : 10 * 1000, // Cookie lifetime (10 seconds) for testing, 15 minutes for production
     });
 
     // Refresh token (long-lived, will not contain user data)
