@@ -5,6 +5,7 @@ import axios from "axios";
 
 import { useAuth } from "../../authContext";
 import { RiErrorWarningLine, RiLogoutBoxLine } from "react-icons/ri";
+import authRefreshApi from "../../authRefreshApi";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -22,7 +23,7 @@ const Logout = ({ toggle, showMenu }) => {
     // setLoading(true);
 
     try {
-      await axios.post(
+      await authRefreshApi.post(
         `${apiUrl}/api/auth/logout`,
         {},
         {

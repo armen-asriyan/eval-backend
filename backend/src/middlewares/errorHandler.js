@@ -1,3 +1,5 @@
+import multer from "multer";
+
 // Global error handler middleware
 const errorHandler = (err, req, res, next) => {
   const isDev = process.env.NODE_ENV === "development";
@@ -18,10 +20,17 @@ const errorHandler = (err, req, res, next) => {
   // Determine error code (useful for MongoDB errors)
   const errorCode = err.code || "SERVER_ERROR";
 
+  // Handle Multer errors
+  if (err instanceof multer.MulterError) {
+    statusCode = 400;
+    errorCode = "INVALID_FILE_TYPE";
+    message = "Invalid file type";
+  }
+
   // Send error response
   res.status(statusCode).json({
     success: false,
-    message: "ErrorHandler: " + message,
+    message,
     code: errorCode,
     stack: isDev ? err.stack : null,
   });

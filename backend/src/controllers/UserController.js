@@ -77,33 +77,13 @@ export const loginUser = async (req, res, next) => {
       .select("+password")
       .populate("skills");
 
-    //#region <Check if the user exists -- old syntax>
-
-    // if (!user) {
-    //   return next({
-    //     statusCode: 401,
-    //     message: "Invalid email or password",
-    //   });
-    // }
-
-    // // Compare the password
-    // const isMatch = await comparePassword(password, user.password);
-
-    // if (!isMatch) {
-    //   return next({
-    //     statusCode: 401,
-    //     message: "Invalid email or password",
-    //   });
-    // }
-    //#endregion
-
-    // Check if the user exists -- new shorter syntax
+    // Check if the user exists
     if (!user || !(await comparePassword(password, user.password))) {
       return next({ statusCode: 401, message: "Invalid email or password" });
     }
 
     // Generate an access jwt
-    const accessToken = generateToken(user._id);
+    const accessToken = generateToken(user._id, "10s"); // 10 seconds for testing
 
     // Generate a UUID for refresh
     const refreshToken = uuidv4();
@@ -118,7 +98,7 @@ export const loginUser = async (req, res, next) => {
       httpOnly: true, // Secure the cookie
       secure: process.env.NODE_ENV === "production", // Use https only in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cors policy only in production
-      maxAge: 15 * 60 * 1000, // Cookie lifetime (15 minutes)
+      maxAge: 10 * 1000, // Cookie lifetime (10 seconds) for testing
     });
 
     // Refresh token (long-lived, will not contain user data)
@@ -148,7 +128,7 @@ export const refreshToken = async (req, res, next) => {
     }
 
     // Find user having the refresh token in the database
-    const user = await User.findOne({ refreshToken });
+    const user = await User.findOne({ refreshToken }).select("+refreshToken");
 
     // Check if the user exists
     if (!user) {
@@ -156,7 +136,7 @@ export const refreshToken = async (req, res, next) => {
     }
 
     // Generate a new access token
-    const newAccessToken = generateToken(user._id); // Generate a new access token
+    const newAccessToken = generateToken(user._id, "15m"); // Generate a new access token
     const newRefreshToken = uuidv4(); // Generate a new refresh token
 
     // Update the user's refresh token
@@ -185,13 +165,15 @@ export const refreshToken = async (req, res, next) => {
     res
       .status(200)
       .json({ message: "Token refreshed", accessToken: newAccessToken });
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
 
 // Function to log out the user
 export const logoutUser = async (req, res, next) => {
   try {
-    const { accessToken } = req.cookies;
+    const { accessToken, refreshToken } = req.cookies;
 
     // Only logout if the access token is present
     if (accessToken) {
@@ -204,16 +186,25 @@ export const logoutUser = async (req, res, next) => {
       });
 
       // Clear the refresh token cookie
-      res.clearCookie("refreshToken", {
-        httpOnly: true, // Secure the cookie
-        secure: process.env.NODE_ENV === "production", // Use https only in production
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cors policy only in production
-        path: "/", // Cookie path
-      });
+      if (refreshToken) {
+        res.clearCookie("refreshToken", {
+          httpOnly: true, // Secure the cookie
+          secure: process.env.NODE_ENV === "production", // Use https only in production
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cors policy only in production
+          path: "/", // Cookie path
+        });
+      }
 
-      // Send a confirmation message
-      res.status(200).json({ message: "Logout successful" });
+      // Remove the refresh token from the database
+      await User.findOneAndUpdate(
+        { _id: req.user },
+        { refreshToken: "" },
+        { new: true }
+      );
     }
+
+    // Send a confirmation message
+    res.status(200).json({ message: "Logout successful" });
   } catch (error) {
     next(error);
   }

@@ -2,14 +2,9 @@
 import { body, param, check } from "express-validator";
 import { POSSIBLE_CATEGORIES, POSSIBLE_LEVELS } from "../models/Skill.js";
 
-// Validation rules for getSkills
-export const getSkillsRules = [
-  check("token").exists().withMessage("User is not logged in"),
-];
-
 // Les regles de validation pour createSkill
 export const createSkillRules = [
-  check("token").exists().withMessage("User is not logged in"),
+  check("accessToken").exists().withMessage("User is not logged in"),
 
   body("title")
     .isString()
@@ -38,7 +33,7 @@ export const createSkillRules = [
 
 // Validation rules for updateSkill
 export const updateSkillRules = [
-  check("token").exists().withMessage("User is not logged in"),
+  check("accessToken").exists().withMessage("User is not logged in"),
 
   param("id").isMongoId().withMessage("Skill id is not valid"),
 
@@ -69,7 +64,7 @@ export const updateSkillRules = [
 
 // Validation rules for deleteSkill
 export const deleteSkillRules = [
-  check("token").exists().withMessage("User is not logged in"),
+  check("accessToken").exists().withMessage("User is not logged in"),
 
   param("id").isMongoId().withMessage("Skill id is not valid"),
 ];

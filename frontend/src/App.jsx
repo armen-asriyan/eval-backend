@@ -5,6 +5,8 @@ import { useLocalStorage } from "@uidotdev/usehooks";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
 import HomePageContent from "./components/HomePageContent";
 import Login from "./components/login/Login";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -32,7 +34,9 @@ function App() {
           <Routes>
             <Route exact path="/" element={<HomePageContent />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+            </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

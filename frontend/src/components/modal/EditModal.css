@@ -26,9 +26,11 @@
 .edit-modal-content .edit-modal__title {
   font-size: var(--h2-font-size);
   margin-bottom: 20px;
+  width: fit-content;
 }
 
 .edit-modal-content .skill-form {
+  max-width: 400px;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -145,6 +147,10 @@
   margin-top: 1rem;
   margin-bottom: 1rem;
   color: #fb3434;
+}
+
+.edit-modal-content .error {
+  text-align: center;
 }
 
 @keyframes spin {

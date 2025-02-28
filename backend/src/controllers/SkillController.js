@@ -11,7 +11,7 @@ import Skill, {
 } from "../models/Skill.js";
 
 // Import upload and delete image service (cloundinary)
-import { uploadImage, deleteImage } from "../services/uploadService.js";
+import { uploadImage, deleteImage } from "../services/uploadImageService.js";
 
 // Function to validate user id and return user from database
 const findUserById = async (userId) => {

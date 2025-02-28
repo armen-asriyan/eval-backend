@@ -1,30 +1,20 @@
 import { useEffect, useState } from "react";
 import "./Dashboard.css";
 import avatar1 from "../../assets/avatar1.webp";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../authContext";
 import Shapes from "../home/Shapes";
 import Skills from "../skills/Skills";
 import EditModal from "../modal/EditModal";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import useSkills from "../../hooks/useSkills";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-
   useDocumentTitle("Dashboard");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [skillToEdit, setSkillToEdit] = useState(null);
 
-  const { isAuth, user, authLoading } = useAuth();
-
-  useEffect(() => {
-    if (!authLoading && !isAuth) {
-      navigate("/login", { replace: true });
-    }
-  }, [authLoading, isAuth, navigate]);
+  const { user } = useAuth();
 
   const { skillsData, skillCategories, skillLevels, isLoading, refetchSkills } =
     useSkills();
@@ -40,22 +30,6 @@ const Dashboard = () => {
     setIsModalOpen(false);
     refetchSkills(); // Re-fetch skills data after closing the modal
   };
-
-  // Show spinner while auth loading
-  if (authLoading) {
-    return (
-      <LoadingSpinner
-        loading={authLoading}
-        isOverlay={false}
-        fillParentVH={true}
-      />
-    );
-  }
-
-  // Render null if user is not authenticated
-  if (!isAuth || !user) {
-    return null;
-  }
 
   return (
     <section className="dashboard container" id="dashboard">

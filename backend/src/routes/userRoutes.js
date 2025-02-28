@@ -6,6 +6,7 @@ import {
   registerUser,
   loginUser,
   logoutUser,
+  refreshToken,
 } from "../controllers/UserController.js";
 
 // Import validation rules
@@ -19,11 +20,8 @@ import {
 // Middleware to validate request (express-validator)
 import validateRequest from "../middlewares/validateRequest.js";
 
-// Middleware to check if the user is logged in (strict middleware)
-// import protect from "../middlewares/protect.js";
-
-// Middleware to check if the user is an admin (permissive middleware)
-import checkAuth from "../middlewares/checkAuth.js";
+// Middleware to check if the user is logged in
+import protect from "../middlewares/protect.js";
 
 // Middleware to limit the number of login attempts (express-rate-limit)
 import loginlimiter from "../middlewares/rateLimiter.js";
@@ -47,21 +45,16 @@ router.post(
   loginUser
 );
 
-// Route to logout a user
-router.post("/logout", logoutUser);
-
 // Route to check if the user is logged in
-router.get("/check", checkAuth, (req, res) => {
-  // const user = Boolean(req.user); // Convert req.user to boolean (same as !!req.user)
-
-  /**
-   * @description Responds with authentication status and user data.
-   * @returns {Object} A JSON response containing authentication status and user info.
-   * @property {boolean} isAuth - Whether the user is authenticated; true if req.user is truthy, false if falsy (e.g., null, undefined, 0, "", false, NaN).
-   * @property {Object|null} user - The user object from req.user, or null if no user exists.
-   */
+router.get("/check", protect, (req, res) => {
   res.status(200).json({ isAuth: !!req.user, user: req.user || null });
 });
+
+// Route to refresh the access token
+router.get("/refresh", refreshToken);
+
+// Route to logout a user
+router.post("/logout", protect, logoutUser);
 
 // Export router instance
 export default router;

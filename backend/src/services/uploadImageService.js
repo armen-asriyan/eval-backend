@@ -1,5 +1,4 @@
 // Import dependencies
-import { fileTypeFromBuffer } from "file-type";
 import cloudinary from "../config/cloudinary.js";
 
 // Define placeholder image id
@@ -14,12 +13,6 @@ export const uploadImage = async (file, category) => {
         "https://res.cloudinary.com/dglygoy4z/image/upload/v1739877977/skills/autres/skill-placeholder.webp",
     };
   }
-
-  // Determine mimetype
-  const { mime } = await fileTypeFromBuffer(file.buffer);
-
-  // If mimetype not allowed
-  if (!mime) throw new Error("File format not allowed");
 
   // Upload image
   return new Promise((resolve, reject) => {

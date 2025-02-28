@@ -10,8 +10,9 @@ import {
   RiSave3Line,
 } from "react-icons/ri";
 
-import axios from "axios";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+
+import authRefreshApi from "../../authRefreshApi";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -65,15 +66,17 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
 
     const method = skill?._id ? "put" : "post"; // Determine if it's a PUT (edit) or POST (add)
 
+    // Call the corresponding API endpoint using the appropriate method
     try {
-      const response = await axios[method](url, data, {
+      // Use an instance of axios with an interceptor to handle 401 errors (refresh token)
+      const response = await authRefreshApi[method](url, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
         withCredentials: true,
       });
 
-      setSuccess(response.data.message);
+      setSuccess(response.data?.message);
       closeModal();
 
       navigate("/dashboard");
@@ -97,9 +100,12 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
     setSuccess(null);
 
     try {
-      const response = await axios.delete(`${apiUrl}/api/skills/${skill._id}`, {
-        withCredentials: true,
-      });
+      const response = await authRefreshApi.delete(
+        `${apiUrl}/api/skills/${skill._id}`,
+        {
+          withCredentials: true,
+        }
+      );
       setSuccess(response.data.message);
 
       closeModal();
@@ -202,18 +208,23 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
           >
             <RiCloseLine />
           </button>
+          {/* If user hasn't yet clicked on the delete button */}
+          {skill && (
+            <button
+              type="button"
+              className="edit-modal__btn delete"
+              onClick={() => handleDeleteConfirm(true)}
+              disabled={loading}
+            >
+              <RiDeleteBin6Line /> Supprimer
+            </button>
+          )}
+
+          {/* Error and success messages */}
+          {error && <p className="error">{error}</p>}
+          {success && <p className="success">{success}</p>}
         </form>
-        {/* If user hasn't yet clicked on the delete button */}
-        {skill && (
-          <button
-            type="button"
-            className="edit-modal__btn delete"
-            onClick={() => handleDeleteConfirm(true)}
-            disabled={loading}
-          >
-            <RiDeleteBin6Line /> Supprimer
-          </button>
-        )}
+
         {isDeleting && (
           <div className="edit-modal-bg">
             <div className="edit-modal-content confirmation">
@@ -253,9 +264,6 @@ const EditModal = ({ closeModal, skill, skillCategories, skillLevels }) => {
             </div>
           </div>
         )}
-        {/* Error and success messages */}
-        {error && <p className="error">{error}</p>}
-        {success && <p className="success">{success}</p>}
         {/* Loading spinner */}
         <LoadingSpinner loading={loading} isOverlay={true} />
       </div>

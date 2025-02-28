@@ -3,6 +3,10 @@ import axios from "axios";
 
 // Middleware to validate reCAPTCHA
 const validateCaptcha = async (req, res, next) => {
+  if (process.env.NODE_ENV === "development") {
+    return next(); // Skip reCAPTCHA validation in development
+  }
+
   // 'captchaToken' Sent from the frontend when submitting the form
   const recaptchaResponse = req.body.captchaToken;
 

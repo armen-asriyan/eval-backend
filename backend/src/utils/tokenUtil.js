@@ -2,11 +2,9 @@
 import jwt from "jsonwebtoken";
 
 // Function to generate a JWT token
-const generateToken = (id) => {
+const generateToken = (userId, expiresIn) => {
   // Return the token
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "1d", // Token expires in 1 day
-  });
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn });
 };
 
 // Export module

@@ -55,6 +55,7 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 - **Node.js & Express.js**: Server-side runtime and web framework for building APIs.
 - **MongoDB with Mongoose**: Database with schema-based solution for Node.js.
 - **JWT**: For handling secure authentication via JSON Web Tokens.
+- **UUID**: For generating unique IDs (used for refresh tokens).
 - **Cookie-parser**: For managing cookies in requests and responses.
 - **Bcrypt**: For password hashing.
 - **Multer**: For handling file uploads.
