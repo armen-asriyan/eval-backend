@@ -1,13 +1,11 @@
 import request from "supertest";
-import app from "../app";
+import app from "../app.js";
 
-// Test global app (separate from user and skill routes)
-describe("User Routes"),
-  () => {
-    // Initialize the supertest object before each test
-    beforeAll(() => {
-      request = supertest(app);
-    });
-
-    // Test express
-  };
+// Test the root route
+describe("GET /", () => {
+  it("should serve the index.html file", async () => {
+    const response = await request(app).get("/");
+    expect(response.status).toBe(200);
+    expect(response.type).toBe("text/html");
+  });
+});
