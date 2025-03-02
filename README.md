@@ -162,7 +162,7 @@ yarn run dev
 
 <p align="center">🚀 That's it! You should now have a fully functional portfolio website with admin dashboard.</p>
 
-<p align="center">📄 Go to <code>/docs</code> to get the full API documentation (Swagger)
+<p align="center">📄 Go to <code>/api-docs</code> to get the full API documentation (Swagger)
 
 <p align="center">📌 Don't forget to create the first user with the `/register` endpoint</p>
 
