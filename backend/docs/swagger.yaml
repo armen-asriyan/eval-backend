@@ -1,0 +1,521 @@
+openapi: 3.0.0
+info:
+  title: Portfolio API
+  description: API to manage portfolio authentication and skills
+  version: 1.0.0
+
+tags:
+  - name: Authentication
+    description: Endpoints related to user authentication (register, login, logout, token refresh)
+  - name: Skills
+    description: Endpoints related to user skills (CRUD operations)
+
+paths:
+  /api/auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: Register a user
+      description: Route to register a new user. Only one admin is allowed during initial setup.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+              properties:
+                name:
+                  type: string
+                  example: "John Doe"
+                email:
+                  type: string
+                  example: "example@example.com"
+                password:
+                  type: string
+                  example: "StrongPassword123!"
+                role:
+                  type: string
+                  example: "user"
+      responses:
+        "201":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User created successfully"
+                  user:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: "MongoDB_ObjectId"
+                      name:
+                        type: string
+                        example: "John Doe"
+                      email:
+                        type: string
+                        example: "example@example.com"
+                      role:
+                        type: string
+                        example: "user"
+                      skills:
+                        type: array
+                        example: []
+                      refreshToken:
+                        type: string
+                        example: "random_UUID"
+                      createdAt:
+                        type: string
+                        example: "2025-03-01T12:00:00Z"
+                      updatedAt:
+                        type: string
+                        example: "2025-03-01T12:00:00Z"
+        "400":
+          description: Validation error or user already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User already exists or missing required fields"
+
+  /api/auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Authenticate a user
+      description: Logs in a user and returns access and refresh tokens.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  example: "example@example.com"
+                password:
+                  type: string
+                  example: "StrongPassword123!"
+      responses:
+        "200":
+          description: User authenticated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User authenticated"
+                  user:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: "MongoDB_ObjectId"
+                      name:
+                        type: string
+                        example: "John Doe"
+                      email:
+                        type: string
+                        example: "example@example.com"
+                  accessToken:
+                    type: string
+                    example: "JWT_Access_Token"
+        "401":
+          description: Invalid email or password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid email or password"
+
+  /api/auth/refresh:
+    get:
+      tags:
+        - Authentication
+      summary: Refresh access token
+      description: Generates a new access token using a refresh token.
+      responses:
+        "200":
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Token refreshed"
+                  accessToken:
+                    type: string
+                    example: "New_JWT_Access_Token"
+        "400":
+          description: Refresh token not found or invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Refresh token not found or expired"
+
+  /api/auth/logout:
+    post:
+      tags:
+        - Authentication
+      summary: Logout a user
+      description: Logs out the user by clearing authentication cookies.
+      responses:
+        "200":
+          description: Logout successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Logout successful"
+
+  /api/skills:
+    get:
+      tags:
+        - Skills
+      summary: Get all skills
+      description: Returns a list of all skills.
+      responses:
+        "200":
+          description: Skills retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  skills:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        image_URL:
+                          type: object
+                          properties:
+                            public_id:
+                              type: string
+                              example: "path_to_your_image/public_id"
+                            secure_url:
+                              type: string
+                              example: "https://res.cloudinary.com/your_cloud_name/image/upload/***"
+                            _id:
+                              type: string
+                              example: "MongoDB_ObjectId of the skill"
+                            title:
+                              type: string
+                              example: "Title of the skill"
+                            category:
+                              type: string
+                              example: "Category of the skill (e.g. backend)"
+                            level:
+                              type: string
+                              example: "Level of the skill (e.g. intermediate)"
+                            userId:
+                              type: string
+                              example: "MongoDB_ObjectId of the user who created the skill"
+                            createdAt:
+                              type: string
+                              example: "2025-03-01T12:00:00Z"
+                            updatedAt:
+                              type: string
+                              example: "2025-03-01T12:00:00Z"
+                  categories:
+                    type: object
+                    properties:
+                      backend:
+                        type: string
+                        example: "Competences Backend"
+                      frontend:
+                        type: string
+                        example: "Competences Frontend"
+                      devops:
+                        type: string
+                        example: "DevOps"
+                      autres:
+                        type: string
+                        example: "Autres Competences"
+                  levels:
+                    type: object
+                    properties:
+                      debutant:
+                        type: string
+                        example: "Deebutant"
+                      intermediaire:
+                        type: string
+                        example: "Intermédiaire"
+                      expert:
+                        type: string
+                        example: "Expert"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Internal server error"
+
+  /api/skills/:
+    post:
+      security:
+        - jwtCookieAuth: []
+      tags:
+        - Skills
+      summary: Create a new skill
+      description: Creates a new skill.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "Skill skill_name was successfully created for user_name"
+                title:
+                  type: string
+                  example: "Title of the skill"
+                category:
+                  type: string
+                  example: "Category of the skill (e.g. backend)"
+                level:
+                  type: string
+                  example: "Level of the skill (e.g. intermediate)"
+                image:
+                  type: string
+                  format: binary
+      responses:
+        "201":
+          description: Skill created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Skill skill_name was successfully created for user_name"
+                  skill:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        example: "Title of the skill"
+                      category:
+                        type: string
+                        example: "Category of the skill (e.g. backend)"
+                      level:
+                        type: string
+                        example: "Level of the skill (e.g. intermediate)"
+                      image:
+                        type: object
+                        properties:
+                          public_id:
+                            type: string
+                            example: "path_to_your_image/public_id"
+                          secure_url:
+                            type: string
+                            example: "https://res.cloudinary.com/your_cloud_name/image/upload/***"
+                          userId:
+                            type: string
+                            example: "MongoDB_ObjectId of the user who created the skill"
+                        _id:
+                          type: string
+                          example: "MongoDB_ObjectId"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isAuthenticated:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "No token provided"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Internal server error"
+
+  /api/skills/{id}:
+    put:
+      security:
+        - jwtCookieAuth: []
+      tags:
+        - Skills
+      summary: Update a skill
+      description: Updates a skill.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the skill to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Title of the skill"
+                category:
+                  type: string
+                  example: "Category of the skill (e.g. backend)"
+                level:
+                  type: string
+                  example: "Level of the skill (e.g. intermediate)"
+                image:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Skill updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Skill skill_name was successfully updated for user_name"
+                  skill:
+                    type: object
+                    properties:
+                      image_URL:
+                        type: object
+                        properties:
+                          public_id:
+                            type: string
+                            example: "path_to_your_image/public_id"
+                          secure_url:
+                            type: string
+                            example: "https://res.cloudinary.com/your_cloud_name/image/upload/***"
+                      "_id":
+                        type: string
+                        example: "MongoDB_ObjectId"
+                      title:
+                        type: string
+                        example: "Title of the skill"
+                      category:
+                        type: string
+                        example: "Category of the skill (e.g. backend)"
+                      level:
+                        type: string
+                        example: "Level of the skill (e.g. intermediate)"
+                      userId:
+                        type: string
+                        example: "MongoDB_ObjectId of the user who created the skill"
+          "401":
+            description: Unauthorized
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    isAuthenticated:
+                      type: boolean
+                      example: false
+                    message:
+                      type: string
+                      example: "No token provided"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Internal server error"
+    delete:
+      security:
+        - jwtCookieAuth: []
+      tags:
+        - Skills
+      summary: Delete a skill
+      description: Deletes a skill.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the skill to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Skill deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Skill was successfully deleted for user_name"
+          "401":
+            description: Unauthorized
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    isAuthenticated:
+                      type: boolean
+                      example: false
+                    message:
+                      type: string
+                      example: "No token provided"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Internal server error"

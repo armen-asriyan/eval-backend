@@ -31,13 +31,13 @@ export const registerUserRules = [
     ),
 
   body("role")
+    .optional() // User schema has a default role
     .isString()
     .trim()
     .notEmpty()
-    .withMessage("Role is missing")
+    .withMessage("Role must be a non-empty string")
     .isIn(["user", "admin"])
-    .withMessage("The role must be user or admin")
-    .default("user"),
+    .withMessage("The role must be either user or admin"),
 ];
 
 // Validation rules for loginUser

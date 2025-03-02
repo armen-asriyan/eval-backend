@@ -1,5 +1,9 @@
-// Import express
+// Import the necessary modules
 import express from "express";
+import swaggerUi from "swagger-ui-express";
+
+import { fileURLToPath } from "url";
+import { join, dirname } from "path";
 
 // Dotenv is loaded within "dev" script
 
@@ -9,6 +13,31 @@ import cors from "cors";
 import helmet from "helmet";
 
 import morganMiddleware from "./src/middlewares/morganMiddleware.js";
+
+// Import routes
+import userRoutes from "./src/routes/userRoutes.js";
+import skillRoutes from "./src/routes/skillRoutes.js";
+
+// Import global error handler
+import errorHandler from "./src/middlewares/errorHandler.js";
+
+import fs from "fs";
+import YAML from "yaml";
+
+// Get current file directory
+const __filename = fileURLToPath(import.meta.url);
+
+// Get current file's directory
+const __dirname = dirname(__filename);
+
+// Public directory
+const publicDir = join(__dirname, "public");
+
+const swaggerDocsDir = join(__dirname, "docs/");
+
+const yamlFile = fs.readFileSync(join(swaggerDocsDir, "swagger.yaml"), "utf-8");
+
+const swaggerDocument = YAML.parse(yamlFile);
 
 // Create an Express application
 const app = express();
@@ -44,19 +73,27 @@ app.use(express.urlencoded({ extended: true }));
 // Use cookie parser to read cookies
 app.use(cookieParser());
 
-// Import routes
-import userRoutes from "./src/routes/userRoutes.js";
-import skillRoutes from "./src/routes/skillRoutes.js";
-
-// Import global error handler
-import errorHandler from "./src/middlewares/errorHandler.js";
-
 // Use morgan middleware to log HTTP requests (which uses Winston logger)
 app.use(morganMiddleware);
+
+// Home route
+app.get("/", (req, res) => {
+  // Send the index.html file from the public directory
+  res.sendFile(publicDir + "/index.html");
+});
+
+// Swagger documentation route
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Routing
 app.use("/api/auth", userRoutes);
 app.use("/api/skills", skillRoutes);
+
+// 404 handler
+app.use((req, res, next) => {
+  res.status(404).json({ error: "Not found", message: "Route not found" });
+  next({ statusCode: 404, message: "Route not found" });
+});
 
 // Global error handler
 app.use(errorHandler);

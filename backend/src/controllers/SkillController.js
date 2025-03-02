@@ -206,7 +206,6 @@ export const deleteSkill = async (req, res, next) => {
     // Send response
     res.status(200).json({
       message: `Skill was successfully deleted for ${user.name}`,
-      skill,
     });
   } catch (error) {
     logError(error);

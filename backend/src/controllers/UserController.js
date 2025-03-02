@@ -57,7 +57,7 @@ export const registerUser = async (req, res, next) => {
     });
 
     // Return a confirmation message
-    res.status(201).json({ message: "Utilisateur enregistré", user });
+    res.status(201).json({ message: "User created successfully", user });
   } catch (error) {
     next(error);
   }
@@ -85,7 +85,7 @@ export const loginUser = async (req, res, next) => {
     }
 
     // Generate an access jwt
-    const accessToken = generateToken(user._id, isProduction ? "15m" : "10s"); // 10 seconds for testing
+    const accessToken = generateToken(user._id, "15m"); // 15 minutes
 
     // Generate a UUID for refresh
     const refreshToken = uuidv4();
@@ -100,7 +100,7 @@ export const loginUser = async (req, res, next) => {
       httpOnly: true, // Secure the cookie
       secure: isProduction, // Use https only in production
       sameSite: isProduction ? "none" : "lax", // Cors policy only in production
-      maxAge: isProduction ? 15 * 60 * 1000 : 10 * 1000, // Cookie lifetime (10 seconds) for testing, 15 minutes for production
+      maxAge: 15 * 60 * 1000, // Cookie lifetime (15 minutes)
     });
 
     // Refresh token (long-lived, will not contain user data)

@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 // Possible roles
 export let possibleRoles = ["admin", "user"];
 
-// Créer un schéma de utilisateur (L'owner de portfolio)
+// Define the user schema
 const userSchema = new mongoose.Schema(
   {
     name: {

@@ -20,45 +20,48 @@ export const POSSIBLE_LEVELS = {
 };
 
 // Create a skill schema
-const skillSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    trim: true,
-    minLength: [3, "The title must have at least 3 characters"],
-    maxLength: [50, "The title must have at most 50 characters"],
-    required: [true, "The title is required"],
-  },
-  category: {
-    type: String,
-    required: [true, "The category is required"],
-    enum: Object.keys(POSSIBLE_CATEGORIES),
-    default: Object.keys(POSSIBLE_CATEGORIES)[lastIndex],
-    lowercase: true,
-  },
-  level: {
-    type: String,
-    required: [true, "The level is required"],
-    enum: Object.keys(POSSIBLE_LEVELS),
-    default: Object.keys(POSSIBLE_LEVELS)[0],
-  },
-  image_URL: {
-    // Cloudinary image URL
-    public_id: {
+const skillSchema = new mongoose.Schema(
+  {
+    title: {
       type: String,
-      default: "",
+      trim: true,
+      minLength: [3, "The title must have at least 3 characters"],
+      maxLength: [50, "The title must have at most 50 characters"],
+      required: [true, "The title is required"],
     },
-    secure_url: {
+    category: {
       type: String,
-      default: "",
+      required: [true, "The category is required"],
+      enum: Object.keys(POSSIBLE_CATEGORIES),
+      default: Object.keys(POSSIBLE_CATEGORIES)[lastIndex],
+      lowercase: true,
+    },
+    level: {
+      type: String,
+      required: [true, "The level is required"],
+      enum: Object.keys(POSSIBLE_LEVELS),
+      default: Object.keys(POSSIBLE_LEVELS)[0],
+    },
+    image_URL: {
+      // Cloudinary image URL
+      public_id: {
+        type: String,
+        default: "",
+      },
+      secure_url: {
+        type: String,
+        default: "",
+      },
+    },
+    userId: {
+      // User who created the skill
+      type: mongoose.Schema.Types.ObjectId, // User ID
+      ref: "User",
+      required: [true, "User is required"],
     },
   },
-  userId: {
-    // User who created the skill
-    type: mongoose.Schema.Types.ObjectId, // User ID
-    ref: "User",
-    required: [true, "User is required"],
-  },
-});
+  { timestamps: true }
+);
 
 // Create the model
 const Skill = mongoose.model("Skill", skillSchema);

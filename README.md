@@ -73,6 +73,15 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
   - **Dotenv**: For managing environment variables.
   - **Nodemon**: For automatic server restart during development.
   - **Cross-env**: For setting environment variables across different OS
+  - **Postman**: For testing API calls during development, also for API documentation.
+  - **Swagger**: For API documentation.
+  - **Yaml**: To read YAML files.
+  - **Yarn**: For dependency management.
+  - **Prettier**: For code formatting.
+  - **ESLint**: For JavaScript linting.
+  - **Jest**: For unit testing.
+  - **Supertest**: For making HTTP requests in tests.
+  -
 
 ## Getting Started
 
@@ -153,6 +162,8 @@ yarn run dev
 
 <p align="center">🚀 That's it! You should now have a fully functional portfolio website with admin dashboard.</p>
 
+<p align="center">📄 Go to <code>/docs</code> to get the full API documentation (Swagger)
+
 <p align="center">📌 Don't forget to create the first user with the `/register` endpoint</p>
 
 ## Demo
@@ -168,6 +179,7 @@ Mobile:
 <img src="./documentation/mobile-screenshot.png" width="50%">
 
 <br />
+<h2 align="center">📄 <a href="https://www.postman.com/armen-asriyan/workspace/my-workspace/collection/40691520-fdac5010-3447-4be9-ad69-3dc5ec896042?action=share&creator=40691520&active-environment=40691520-944ffed6-908f-4e88-83ae-5b54078c38e1">Postman collection</h2></a>
 <h2 align="center">👉 <a href="https://eval-backend.vercel.app">Live Demo on Vercel</h2></a>
 <br />
 
