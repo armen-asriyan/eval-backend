@@ -79,7 +79,7 @@ const Sidebar = (props) => {
 
               {!isAuth ? (
                 <li className="nav__item">
-                  <HashLink
+                  <Link
                     to="/login"
                     className="nav__link"
                     onClick={() => {
@@ -89,7 +89,7 @@ const Sidebar = (props) => {
                     aria-label="Nav Se connecter"
                   >
                     <RiLoginBoxLine />
-                  </HashLink>
+                  </Link>
                 </li>
               ) : (
                 <LogoutButton toggle={toggle} showMenu={showMenu} />

@@ -54,7 +54,7 @@ router.get("/check", protect, (req, res) => {
 router.get("/refresh", refreshToken);
 
 // Route to logout a user
-router.post("/logout", protect, logoutUser);
+router.post("/logout", logoutUser);
 
 // Export router instance
 export default router;
