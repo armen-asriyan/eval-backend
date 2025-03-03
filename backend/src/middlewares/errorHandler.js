@@ -2,13 +2,13 @@ import multer from "multer";
 
 // Global error handler middleware
 const errorHandler = (err, req, res, next) => {
-  const isDev = process.env.NODE_ENV === "development";
+  const isProduction = process.env.NODE_ENV === "production";
 
   // Log error stack
-  if (isDev) {
-    console.error(` errorHandler: ${err.stack}`);
-  } else {
+  if (isProduction) {
     console.error(` errorHandler: ${err.message}`);
+  } else {
+    console.error(` errorHandler: ${err.stack}`);
   }
 
   // Determine error status code
@@ -32,7 +32,7 @@ const errorHandler = (err, req, res, next) => {
     success: false,
     message,
     code: errorCode,
-    stack: isDev ? err.stack : null,
+    stack: isProduction ? null : err.stack,
   });
 };
 

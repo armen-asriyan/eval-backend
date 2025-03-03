@@ -11,6 +11,7 @@ const morganMiddleware = morgan("combined", {
       logger.info(message.trim()); // Log the message (using winston logger)
     },
   },
+  skip: (req, res) => process.env.NODE_ENV === "test", // Skip logging in test environment
 });
 
 // Export the middleware

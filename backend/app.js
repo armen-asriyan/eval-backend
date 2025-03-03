@@ -91,8 +91,10 @@ app.use("/api/skills", skillRoutes);
 
 // 404 handler
 app.use((req, res, next) => {
-  res.status(404).json({ error: "Not found", message: "Route not found" });
-  next({ statusCode: 404, message: "Route not found" });
+  const error = new Error(`Route '${req.originalUrl}' not found.`);
+  error.statusCode = 404;
+  error.code = "NOT_FOUND";
+  next(error);
 });
 
 // Global error handler

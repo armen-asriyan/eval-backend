@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import axios from "axios";
-
 import { useAuth } from "../../authContext";
 import { RiErrorWarningLine, RiLogoutBoxLine } from "react-icons/ri";
 import authRefreshApi from "../../authRefreshApi";

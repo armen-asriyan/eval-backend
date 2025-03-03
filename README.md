@@ -69,19 +69,22 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 - **CORS**: Cross-Origin Resource Sharing support.
 - **Axios**: For making HTTP requests.
 - **express-rate-limit**: To limit repeated requests from the same IP.
-- **Development tools**:
-  - **Dotenv**: For managing environment variables.
-  - **Nodemon**: For automatic server restart during development.
-  - **Cross-env**: For setting environment variables across different OS
-  - **Postman**: For testing API calls during development, also for API documentation.
-  - **Swagger**: For API documentation.
-  - **Yaml**: To read YAML files.
-  - **Yarn**: For dependency management.
-  - **Prettier**: For code formatting.
-  - **ESLint**: For JavaScript linting.
-  - **Jest**: For unit testing.
-  - **Supertest**: For making HTTP requests in tests.
-  -
+
+<details>
+<summary><b>Development tools</b>:</summary>
+
+- **Dotenv**: For managing environment variables.
+- **Nodemon**: For automatic server restart during development.
+- **Cross-env**: For setting environment variables across different OS
+- **Postman**: For testing API calls during development, also for API documentation.
+- **Swagger**: For API documentation.
+- **Yaml**: To read YAML files.
+- **Yarn**: For dependency management.
+- **Prettier**: For code formatting.
+- **ESLint**: For JavaScript linting.
+- **Jest**: For unit testing.
+- **Supertest**: For making HTTP requests in tests.
+</details>
 
 ## Getting Started
 
@@ -162,9 +165,8 @@ yarn run dev
 
 <p align="center">🚀 That's it! You should now have a fully functional portfolio website with admin dashboard.</p>
 
-<p align="center">📄 Go to <code>/api-docs</code> to get the full API documentation (Swagger)
-
-<p align="center">📌 Don't forget to create the first user with the `/register` endpoint</p>
+<h2 align="center">📝 Additional tips:</h2>
+<p align="center">📄 <b>In the backend</b>: go to <code>/api-docs</code> to get the full API documentation (Swagger)
 
 ## Demo
 
