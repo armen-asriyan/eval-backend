@@ -138,7 +138,9 @@
   justify-content: center;
   gap: 10px;
   padding-top: 3rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .edit-modal__confirm-delete-text svg {
@@ -159,5 +161,11 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .edit-modal__confirm-delete-text {
+    white-space: wrap;
   }
 }
