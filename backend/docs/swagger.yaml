@@ -148,6 +148,64 @@ paths:
                     type: string
                     example: "Invalid email or password"
 
+  /api/auth/check:
+    get:
+      tags:
+        - Authentication
+      summary: Check authentication status
+      description: Checks if the user is authenticated.
+      responses:
+        "200":
+          description: User is authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isAuth:
+                    type: boolean
+                    example: true
+                  user:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: "MongoDB_ObjectId"
+                      name:
+                        type: string
+                        example: "John Doe"
+                      email:
+                        type: string
+                        example: "example@example.com"
+                      role:
+                        type: string
+                        example: "user"
+                      skills:
+                        type: array
+                        example: []
+                      refreshToken:
+                        type: string
+                        example: "random_UUID"
+                      createdAt:
+                        type: string
+                        example: "2025-03-01T12:00:00Z"
+                      updatedAt:
+                        type: string
+                        example: "2025-03-01T12:00:00Z"
+        "401":
+          description: User is not authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isAuth:
+                    type: boolean
+                    example: false
+                  user:
+                    type: object
+                    example: null
+
   /api/auth/refresh:
     get:
       tags:
