@@ -60,7 +60,6 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 - **Bcrypt**: For password hashing.
 - **Multer**: For handling file uploads.
 - **File-type**: For file type validation.
-- **Redis**: For caching.
 - **Cloudinary**: For cloud image storage and transformation.
 - **Winston & Morgan**: For logging requests and errors.
 - **Express Validator**: For input validation in Express apps.
@@ -84,6 +83,7 @@ A full-stack portfolio website built with React and Node.js, featuring user auth
 - **ESLint**: For JavaScript linting.
 - **Jest**: For unit testing.
 - **Supertest**: For making HTTP requests in tests.
+- **MongoDB-Memory-Server**: For running MongoDB in-memory for testing.
 </details>
 
 ## Getting Started
