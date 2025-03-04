@@ -53,15 +53,22 @@ const skillSchema = new mongoose.Schema(
         default: "",
       },
     },
+    // Autres régles de schema Skills
+
+    // La rélation avec la collection User
     userId: {
-      // User who created the skill
       type: mongoose.Schema.Types.ObjectId, // User ID
       ref: "User",
       required: [true, "User is required"],
+
+      // Le reste du code...
     },
   },
   { timestamps: true }
 );
+
+// Index by userId
+skillSchema.index({ userId: 1 });
 
 // Create the model
 const Skill = mongoose.model("Skill", skillSchema);

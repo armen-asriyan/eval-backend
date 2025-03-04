@@ -43,6 +43,9 @@ const userSchema = new mongoose.Schema(
   { timestamps: true } // Add timestamps
 );
 
+// Create an index on the skills field
+userSchema.index({ skills: 1 });
+
 // Create the model
 const User = mongoose.model("User", userSchema);
 

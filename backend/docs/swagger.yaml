@@ -290,8 +290,8 @@ paths:
         - jwtCookieAuth: []
       tags:
         - Skills
-      summary: Create a new skill
-      description: Creates a new skill.
+      summary: Create a new skill (multipart/form-data, Cloudinary)
+      description: Creates a new skill, possibility to upload an image (or use the placeholder).
       requestBody:
         required: true
         content:
@@ -382,8 +382,8 @@ paths:
         - jwtCookieAuth: []
       tags:
         - Skills
-      summary: Update a skill
-      description: Updates a skill.
+      summary: Update a skill (multipart/form-data, Cloudinary)
+      description: Updates a skill, possibility to upload / replace an image (or use the placeholder).
       parameters:
         - name: id
           in: path
